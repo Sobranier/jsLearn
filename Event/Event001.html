@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<script src="EventUtil.js"></script>
+</head>
+<body>
+	<input id="btn" type="button" vaule="click">
+	<input id="btn2" type="button" vaule="click">
+	<input id="mybtn" type="button" vaule="click">
+	<a href="#" id="mylink">lalalalalala</a>
+	<input id="mybtn2" type="button" vaule="click">
+	<a href="http://www.baidu.com">12121212</a>
+	<button id="mybtn3">button</button>
+	<script>
+		var btn = document.getElementById('btn');
+		var handler = function(){
+			alert("clicked");
+		};
+		EventUtil.addHandler(btn,"click",handler);
+//		EventUtil.removeHandler(btn,"click",handler);
+
+		var btn2 = document.getElementById('btn2');
+		btn2.addEventListener("click",function(event){
+			alert(event.type);
+		},false);
+
+		var mybtn = document.getElementById("mybtn");
+		var handlers = function(event){
+			switch(event.type){
+				case "click":
+					alert("Clicked");
+					break;
+
+				case "mouseover":
+					event.target.style.backgroundColor = "red";
+					break;
+
+				case "mouseout":
+					event.target.style.backgroundColor = "";
+					break;
+			}
+		};
+		mybtn.onclick = handlers;
+		mybtn.onmouseover = handlers;
+		mybtn.onmouseout = handlers;
+
+		var link = document.getElementById('mylink');
+		link.onclick = function(event){
+			event.preventDefault();
+			alert("link clicked!");
+			event.stopPropagation();
+		};
+
+		document.body.onclick = function(event){
+			alert("Body clicked!");
+		}
+
+		var mybtn2 = document.getElementById("mybtn2");
+		mybtn2.onclick = function(event){
+			console.log("clicked");
+			var event = EventUtil.getEvent(event);
+			var target = EventUtil.getTarget(event);
+			console.log(target);
+			EventUtil.preventDefault(event);
+			EventUtil.stopPropagation(event);
+		}
+
+		EventUtil.addHandler(window,"load",function(event){
+			var image = document.createElement("img");
+			EventUtil.addHandler(image, "load", function(event){
+				event = EventUtil.getEvent(event);
+				console.log(EventUtil.getTarget(event).src);
+				console.log("img loaded!");
+			});
+			document.body.appendChild(image);
+			image.src  ="https://www.google.com.hk/images/srpr/logo11w.png";
+			console.log("window loaded!");
+		});
+		
+		EventUtil.addHandler(window,"unload",function(event){
+			alert("Unloaded");
+		});//这个还没有看到效果
+
+		EventUtil.addHandler(window,"resize",function(event){
+			var event = EventUtil.getEvent(event);
+			var target = EventUtil.getTarget(event);
+			console.log(target.innerWidth);			
+		});
+
+		var mybtn3 = document.getElementById("mybtn3");
+		EventUtil.addHandler(mybtn3,'click',function(event){
+			var keys = new Array();
+			if(event.shiftKey){
+				keys.push("shift");
+			}
+			if(event.ctrlKey){
+				keys.push("ctrl");
+			}
+			if(event.altKey){
+				keys.push("alt");
+			}
+			if(event.metaKey){
+				keys.push("meta");
+			}
+			console.log("Keys"+keys.join("-"));
+			EventUtil.stopPropagation(event);
+		});
+	</script>
+</body>
+</html>
