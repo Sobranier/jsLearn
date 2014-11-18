@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XHR</title>
+</head>
+<body>
+	<p>nihao!!!</p>
+
+	<script>
+		function createXHR(){
+			if (typeof XMLHttpRequest != "undefined"){
+				return new XMLHttpRequest();
+			} else if (typeof ActiveXObject != "undefined") {
+				//略。。
+			} else {
+				throw new Error("No XHR object available.");
+			}
+		}
+		var xhr = creatXHR();
+		xhr.open('get', 'example.txt', false);
+		xhr.send(null);
+		if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+			console.log(xhr.statusText);
+			console.log(xhr.responseText);
+		} else {
+			console.log("Unsuccessful " + xhr.status);
+		}
+	</script>
+</body>
+</html>
