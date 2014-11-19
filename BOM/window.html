@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BOM BASE</title>
+</head>
+<body>
+	<script>
+		//window position
+		var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX,
+			rightPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
+		console.log (leftPos + '-' + rightPos);
+
+		//view size
+		//compatMode判定是否是标准模式
+		//对于移动设备，window.innerwidth和window.innerHeight 保存着可见适口，也就是屏幕上可见界面区域的大小
+		var pageWidth = window.innerWidth,
+			pageHeight = window.innerHeight;
+		if (typeof pageWidth != "number") {
+			if (document.compatMode == "CSS1Compat") {
+				pageWidth = document.documentElement.clientWidth;
+				pageHeight = document.documentElement.clientHeight;
+			} else {
+				pageWidth = document.body.clientWidth;
+				pageHeight = document.body.clientHeight;
+			}
+		}
+		console.log(pageWidth + '-' + pageHeight);
+
+		//打开窗口
+		//定位似乎不起作用
+		
+		setTimeout(function(){
+			var blocked = false;
+			try {
+				var wWindow = window.open('http://www.baidu.com', 'newFrame', 'height=400,width=400,top=10,left=10,resizable=yes,location:no');
+				if (wWindow == null) {
+					blocked = true;
+				}
+				setTimeout(function(){
+					wWindow.close();
+				},4000);
+			} catch (ex) {
+				blocked = true;
+			}
+			if (blocked) {
+				consloe.log('阻塞');
+			}
+		},1000);
+		setTimeout(function(){
+			var woWindow = window.open('http://www.baidu.com', 'newFrameToo', 'height=400,width=400,top=10,left=10,resizable=yes,location:no');
+			woWindow.resizeTo(500,500);
+			woWindow.moveTo(100,100);
+			setTimeout(function(){
+				woWindow.close();	
+			},2000);
+		},1000);
+
+		//location
+		function getQueryStringArgs() {
+			var qs = (location.search.length > 0 ? location.search.substring(1) : ""),
+				args = {},
+				items = qs.length ? qs.split("&") : [],
+				item = null,
+					name = null,
+					value = null,
+
+					i = 0,
+					len = items.length;
+			for (i=0; i<len; i++) {
+				item = items[i].split("=");
+				name = decodeURIComponent(item[0]);
+				value = decodeURIComponent(item[1]);
+
+				if (name.length) {
+					args[name] = value;
+				}
+			}
+
+			return args;
+		}
+		var args = getQueryStringArgs();
+		console.log(args['name']);
+
+		//plugins
+		function hasPlugin(name) {
+			name = name.toLowerCase();
+			for (var i=0; i < navigator.plugins.length; i++){
+				if (navigator.plugins[i].name.toLowerCase().indexOf(name) > -1){
+					return true;
+				}
+			}
+		}
+		console.log(hasPlugin('Flash'));
+
+	</script>
+</body>
+</html>
