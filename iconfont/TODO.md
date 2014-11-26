@@ -1,0 +1,2 @@
+需要尝试一下阿里的iconfont
+另外也需要自己实现一套iconfont，目前个人站点和测试用站点可以都使用fontawasome的那一套

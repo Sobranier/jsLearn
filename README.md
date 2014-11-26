@@ -8,3 +8,6 @@ jsLearn
 
 章节相关：
 11月17、18日关于Ajax、BOM的相关内容
+
+
+添加一段关于iconfont的目录
