@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>按钮</title>
+        <style>
+            .button {
+                display:inline-block;
+                margin:50px auto;
+                width:100px;height:40px;line-height:40px;
+                padding:0 16px;
+                border:1px solid #d0d0d0;
+                border-radius:0;
+                background-color: #fff;
+                font-size: 14px; text-align: center; color:#333; 
+                -webkit-transition: all .2s; transition: all .2s;
+                cursor: pointer;
+            }
+
+            .loading {
+                color:transparent;
+                background-color:#eee;
+                cursor:default;
+                pointer-events:none;
+            }
+             
+        </style>
+    </head>
+    <body>
+        <a href="javascript:" id="button" class="button">按钮</a>
+        <p>本例处在正则的目录下，实际却是我要学习另外三个东西</p>
+        <p>1、正则的优雅运用，在切换类名的情况话很好用</p>
+        <p>2、color:transparent可以用于透明字颜色</p>
+        <p>3、pointer-event:none;这个很神奇，使用了它的按钮在任何情况下点击不会再有效果</p>
+        <script>
+            var button = document.getElementById('button');
+            if (button) {
+                button.onclick = function() {
+                    var className = this.className;
+                    console.log('clicking');
+                    if (/loading/.test(className) == false) {
+                        button.className += " loading";
+                        setTimeout(function(){
+                            button.className = 'button';
+                        },4000);
+                    }
+                };
+            }
+        
+        </script>
+    </body>
+</html>
