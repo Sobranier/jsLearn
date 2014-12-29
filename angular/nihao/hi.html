@@ -17,7 +17,34 @@
             </li>
         </ul>
     </div>
+
+    <!--
+    <div ng-controller="customerCT">
+        <ul>
+            <li ng-repeat="x in names">
+                {{x.Name + ',' + x.Country}}
+            </li>
+        </ul>
+    </div>
+    -->
+    <div ng-controller="customerCT">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.Name }}</td>
+                <td>{{ x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+
     <script>
+
+        function customerCT($scope,$http) {
+            $http.get('name.php').success(function(response){
+                $scope.names = response;
+            });
+        }
+
+
         function helloAngular($scope) {
             $scope.person = {
                 firstName:"JOHN",
@@ -38,6 +65,9 @@
             ];
         }
     </script>
+<!--
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+-->
+    <script src="http://apps.bdimg.com/libs/angular.js/1.2.15/angular.min.js">
 </body>
 </html>

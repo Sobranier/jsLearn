@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{greeting.text}}
+    </div>
+    <script>
+        function myCtrl($scope) {
+            $scope.greeting = {
+                text:"hello world"
+            };
+        }
+    </script>
+</body>
+</html>
