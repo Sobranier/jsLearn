@@ -19,3 +19,36 @@ error!!!!js控制器测试失败，一直没有通过
 经过检查，1.0.3没有问题，1.3.8有问题
 
 
+_________________________
+ng-app标记angularjs的作用域，angularjs脚本仅在这个区域内运行
+
+handlebars
+
+var source = $('#XXX').html();
+var template = Handlebars.compile(source);
+var context = {title: "My New Post", body: "This is my first post!"}
+var html    = template(context);
+
+12-29 再整理
+===========
+ng-app 标记了angularjs的脚本作用域
+
+注入器将用于创建此应用程序的依赖注入，注入器将会创建根作用域作为我们应用模型的范围，angularjs将会链接更作用域中得dom，从ngapp标记的html标签出开始，逐步处理dom中得指令和绑定
+
+模型-视图-控制器MVC
+
+关于js压缩，由于angularjs是通过控制器构造函数的参数名字来推断以来服务名称的。所以压缩控制器的代码，所有的参数也会被压缩，这时候依赖煮熟系统就不能正确地识别出服务了。
+为了克服压缩引起的问题，要再控制器函数里面给$inject属性赋值一个依赖服务标识符的数组。
+
+ng-src:
+一般的src绑定了{{}}之后，浏览器会把这个标记进行字面解释，发起非法的http://XXXX/{{}}请求，浏览器载入界面的时候，同事会请求载入图片，angularjs在界面载入完毕的时候才开始变异，浏览器请求载入图片时{{XX}}还没有变异，有了ngsrc会避免这种情况，防止浏览器产生一个非法的地址请求
+如果真的使用了src，会有非法请求的记录
+
+
+
+
+
+
+
+
+
