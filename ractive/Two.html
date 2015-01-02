@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang='en-GB'>
+<head>
+    <meta charset='utf-8'>
+    <title>双向绑定</title>
+    <script src='http://cdn.ractivejs.org/latest/ractive.min.js'></script>
+</head>
+
+<body>
+
+    <div id="ct1"></div>
+    <script id="tp1" type="text/ractive">
+
+        <label>
+            Enter your name:
+            <input value='{{name}}'>
+        </label>
+
+        <p>Hello, {{name}}!</p>
+
+        <label>
+            <input type="checkbox" checked="{{checked}}">
+            {{#if checked}}
+                checked!
+            {{else}}
+                not checked!
+            {{/if}}
+        </label>
+
+        <fieldset>
+            <label>
+                <input type="radio" name='{{color}}' value="red" checked>red
+            </label>
+            <label>
+                <input type="radio" name='{{color}}' value="green">green
+            </label>
+            <label>
+                <input type="radio" name='{{color}}' value="blue">blue
+            </label>
+            <p style='color:{{color}}'>{{color}}</p>
+
+        </fieldset>
+
+        <select value='{{color}}'>
+            {{#each colors}}
+                <option>{{this}}</option>
+            {{/each}}
+        </select>
+
+    </script>
+    <script>
+
+        var rac1=new Ractive({
+            el:'ct1',
+            template:'#tp1',
+            data: {
+                color: 'blue',
+                colors:[
+                    'red','yellow','green','blue','black'
+                ]
+            }
+        });
+        rac1.observe('name', function(newValue,oldValue){
+            console.log(newValue);
+        });
+
+    </script>
+
+
+
+</body>
+</html>

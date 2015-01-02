@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang='en-GB'>
+<head>
+    <meta charset='utf-8'>
+    <title>Transitions</title>
+    <script src='http://cdn.ractivejs.org/latest/ractive.min.js'></script>
+</head>
+
+<body>
+
+    <div id="ct1"></div>
+    <script id="tp1" type="text/ractive">
+        {{#if visible === 1}}
+            <button intro='fade' on-click="show:2">Click1</button>
+        {{/if}}
+        {{#if visible === 2}}
+            <button intro='slide' on-click="show:3">Click2</button>
+        {{/if}}
+        {{#if visible === 3}}
+            <button intro='fly' on-click="show:1">Click3</button>
+        {{/if}}
+        
+    </script>
+    <script>
+        var ractive=new Ractive({
+            el:'ct1',
+            template:'#tp1',
+            data:{visible:1}
+        });
+        ractive.on({
+            show:function(event,which) {
+                this.set('visible',which);
+            }
+        });
+
+    </script>
+
+
+
+</body>
+</html>
