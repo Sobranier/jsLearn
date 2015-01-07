@@ -2,13 +2,9 @@
 <html>
 <head>
     <title>angular learn</title>
-    <script src = "angular.js"></script>
-    <link rel = "stylesheet" href = "bootstrap.min.css" />
-    <style>
-        .error {background-color:red;}
-        .warning, .selected {background-color:yellow;}
-    </style>
-
+    <script src = "../src/angular.js"></script>
+    <script src = "../src/angular-route.js"></script>
+    <link rel = "stylesheet" href = "../src/bootstrap.min.css" />
 </head>
 <body ng-app = "myApp">
 
@@ -20,7 +16,11 @@
         <div>Age:<input type="number" ng-model='user.age' ng-maxlength='3' ng-minlength = '1'></div>
         <div><button ng-click = 'addUser()' ng-disabled='!addUserForm.$valid'>Submit</button></div>
         <div ng-show='message'>{{message}}</div>
+        <hello></hello>
     </form>
+
+    <input ng-model = "names" />
+    <p ng-bind = "names"></p>
 
     <script>
         var myApp = angular.module('myApp',[]);
@@ -29,6 +29,13 @@
             $scope.addUser = function () {
                 $scope.message = 'Thanse' + $scope.user.first + ', we see';
             } 
+        });
+        myApp.directive('hello', function() {
+            return {
+                restrict: 'E',
+                template:'<div>Hi nihao</div>',
+                replace:true
+            }
         });
     </script>
  

@@ -1,0 +1,17 @@
+{
+  "name": "angular",
+  "version": "0.0.0",
+  "description": "ng-app angular应用程序 ng-model 绑定输入域的值到应用程序变量name ng-bind 把变量那么当订到某个段落的innerHTML ng-init初始化",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {
+    "grunt-contrib-uglif": "~0.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
