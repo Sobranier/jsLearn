@@ -44,11 +44,32 @@ ng-src:
 一般的src绑定了{{}}之后，浏览器会把这个标记进行字面解释，发起非法的http://XXXX/{{}}请求，浏览器载入界面的时候，同事会请求载入图片，angularjs在界面载入完毕的时候才开始变异，浏览器请求载入图片时{{XX}}还没有变异，有了ngsrc会避免这种情况，防止浏览器产生一个非法的地址请求
 如果真的使用了src，会有非法请求的记录
 
+浏览器会首先加载html界面，渲染它，然后angular才会有机会结实，所以有时候用{{}}会让用户看到，用ng-bind回更好一些
+
+提交表单的时候ng-submit会自动阻止浏览器执行默认的post操作。
+
+ng-click,ng-dbclick,
+ng-repeat,
+ng-show,ng-hide,
+
+######css的修改有三种建议
+
+一、对类名控制：如class = 'menu-disabled-{{isDisabled}}'
+
+二、ng-class = {erroe:isError,warning:isWarning}
+
+三、<span ng-style=”myColor”>your color</span>
+$scope.myColor={cursor: ‘pointer’,color:’blue’};
 
 
 
+ng-src、ng-href
 
 
+$watch();
 
+provider,factory,service
+
+过滤器，自定义过滤器modelname.filter('XXX',function(){});   <h1>{{item | XXX}}</h1>
 
 

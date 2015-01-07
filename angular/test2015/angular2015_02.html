@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>angular learn</title>
+    <script src = "angular.js"></script>
+    <style>
+        .error {background-color:red;}
+        .warning, .selected {background-color:yellow;}
+    </style>
+
+</head>
+<body ng-app = "myApp">
+    <div ng-controller = "CTController">
+        <div ng-repeat = "item in items">
+            <span>{{item.title}}</span>
+            <input ng-model = "item.quantity" />
+            <span>{{item.price | currency}}</span>
+            <span>{{item.price * item.quantity | currency}}</span>
+        </div>
+        <div>TOTAL: {{totalCart() | currency}}</div>
+        <div>Discount: {{bill.discount | currency}}</div>
+        <div>Subtotal: {{subtotal() | currency}}</div>
+    </div>
+
+    <div ng-controller = "ShoppingController">
+        <div ng-repeat = "itts in Itts">
+            <span>{{itts.title | changecase}}</span>
+            <span>{{itts.price}}</span>
+        </div>
+    </div>
+ 
+
+
+
+    <script>
+        var myAppModule = angular.module('myApp', []);
+        myAppModule.controller('CTController', function ($scope) {
+            $scope.bill = {};
+            $scope.items = [
+                {title:'BBBBB',quantity:8,price:3.95},
+                {title:'CCCCC',quantity:6,price:6.65},
+                {title:'DDDDD',quantity:2,price:3.05},
+                {title:'EEEEE',quantity:9,price:2.15},
+            ];
+            $scope.totalCart = function () {
+                var total = 0;
+                for (var i = 0, len = $scope.items.length; i < len; i ++) {
+                    total += $scope.items[i].price * $scope.items[i].quantity;
+                }
+                return total;
+            }
+            $scope.subtotal = function () {
+                return $scope.totalCart() - $scope.bill.discount;
+            }
+            function cattu (newValue, oldValue, scope) {
+                $scope.bill.discount = newValue > 100 ? 10 : 0;
+            }
+            $scope.$watch($scope.totalCart, cattu);
+        });
+
+        //使用工场服务是来创建itts接口
+        myAppModule.factory('Itts',function () {
+            var itts = {};
+            itts.query = function () {
+                return [
+                    {title: 'nimenhaobuhao', price: 666},
+                    {title: 'nishuone', price: 888},
+                    {title: 'wojuedehaixing', price: 777}
+                ];
+            };
+            return itts;
+        });
+
+        myAppModule.controller('ShoppingController', function ($scope, Itts) {
+            $scope.Itts = Itts.query();
+        });
+
+        myAppModule.filter('changecase', function () {
+            var changeit = function (input) {
+                var word = input;
+                word = word.charAt(0).toUpperCase() + word.slice(1);
+                return word;
+            }
+            return changeit;
+        });
+
+        
+
+       
+
+    </script>
+</body>
+</html>

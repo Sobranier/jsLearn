@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>angular learn</title>
+    <script src = "angular.js"></script>
+    <style>
+        .error {background-color:red;}
+        .warning, .selected {background-color:yellow;}
+    </style>
+
+</head>
+<body ng-app = "myApp">
+    <div ng-controller = "TextController">
+        <p>{{someText.message}}</p>
+    </div>
+
+    <form ng-controller = "SomeController" ng-submit = "requestFunding()">
+        <input ng-change = "computeNeeded()" ng-model = "funding.startingEstimate">
+        Recommendation:{{funding.needed}}
+        <input ng-model = "funt.startEst">
+        Recommendation:{{funt.needed}}
+        <input ng-change = "comp()" ng-model = 'fee.sat'>
+        Recommendation:{{fee.needed}}
+        <button>Fund my Startup!</button>
+        <button ng-click = "reset()">Reset</button>
+    </form>
+
+    <div ng-controller = "DTController">
+        <button ng-click = "toog()">TOOG</button>
+        <ul ng-show="menuShow">
+            <li ng-repeat = "student in students">
+                {{$index+1}}{{student.name}}{{student.duration}}
+            </li>
+        </ul>
+    </div>
+
+    <div ng-controller = "DSController">
+        <div class = "menu-disabled-{{isDisabled}}" ng-click = 'stun()'>Stun</div>
+        <div ng-class = '{error:isError,warning:isWarning}'>{{message}}</div>
+        <button ng-click = 'showError()'>Sim Error</button>
+        <button ng-click = 'showWarning()'>Sim Warn</button>
+        <ul>
+            <li ng-repeat = 'rest in directory' ng-click = 'selectR($index)' ng-class = '{selected: $index == selectedRow}'>{{rest.name}}</li>
+        </ul>
+
+    </div>
+
+
+
+    <script>
+        var myAppModule = angular.module('myApp', []);
+        myAppModule.controller('TextController', function ($scope) {
+            var someText = {};
+            someText.message = "MOHAHA";
+            $scope.someText = someText;
+        });
+
+        myAppModule.controller('SomeController', function ($scope) {
+            $scope.funding = {startingEstimate : 0};
+            $scope.computeNeeded = function () {
+                $scope.funding.needed = $scope.funding.startingEstimate * 10;
+            };
+
+            $scope.funt = {startEst : 0};
+            comput = function() {
+                $scope.funt.needed = $scope.funt.startEst * 10;
+            };
+            $scope.$watch('funt.startEst', comput);
+
+            $scope.comp = function () {
+                $scope.fee.needed = $scope.fee.sat * 10;
+            }
+            $scope.requestFunding = function () {
+                console.log("Sorry, please get more first");
+            }
+            $scope.reset = function () {
+                $scope.fee.needed = 0;
+            }
+        });
+
+        myAppModule.controller('DTController', function ($scope) {
+            $scope.students = [
+                {name: 'Mary', duration: 'shenme'},
+                {name: 'Mark', duration: 'shenmea'},
+                {name: 'Jack', duration: 'shenmene'}];
+            $scope.menuShow = false;
+            $scope.toog = function () {
+                $scope.menuShow = !$scope.menuShow;
+            }
+        });
+
+        myAppModule.controller('DSController', function ($scope) {
+            $scope.isDisabled = false;
+            $scope.stun = function () {
+                $scope.isDisabled = true;
+            }
+            $scope.isError = false;
+            $scope.isWarning = false;
+            $scope.showError = function () {
+                $scope.message = 'This is an error!';
+                $scope.isError = true;
+                $scope.isWarning = false;
+            }
+            $scope.showWarning = function () {
+                $scope.message = 'This is an warning';
+                $scope.isError = false;
+                $scope.isWarning = true;
+            }
+
+            $scope.directory = [
+                {name:'hand'},
+                {name:'nade'},
+                {name:'face'}
+            ];
+            $scope.selectR = function (row) {
+                $scope.selectedRow = row;
+            }
+
+        });
+
+    </script>
+</body>
+</html>

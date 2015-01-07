@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>angular learn</title>
+    <script src = "angular.js"></script>
+    <link rel = "stylesheet" href = "bootstrap.min.css" />
+    <style>
+        .error {background-color:red;}
+        .warning, .selected {background-color:yellow;}
+    </style>
+
+</head>
+<body ng-app = "myApp">
+
+    <h1>Sign Up</h1>
+    <form name = "addUserForm" ng-controller="AddUserController">
+        <div>First Name:<input ng-model = 'user.first' required></div>
+        <div>Last Name:<input ng-model = 'user.last' required></div>
+        <div>Email:<input type = 'email' ng-model = 'user.email' required></div>
+        <div>Age:<input type="number" ng-model='user.age' ng-maxlength='3' ng-minlength = '1'></div>
+        <div><button ng-click = 'addUser()' ng-disabled='!addUserForm.$valid'>Submit</button></div>
+        <div ng-show='message'>{{message}}</div>
+    </form>
+
+    <script>
+        var myApp = angular.module('myApp',[]);
+        myApp.controller('AddUserController', function($scope){
+            $scope.message = '';
+            $scope.addUser = function () {
+                $scope.message = 'Thanse' + $scope.user.first + ', we see';
+            } 
+        });
+    </script>
+ 
+
+</body>
+</html>
