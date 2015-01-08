@@ -73,3 +73,4 @@ provider,factory,service
 过滤器，自定义过滤器modelname.filter('XXX',function(){});   <h1>{{item | XXX}}</h1>
 
 
+在全局空间写变量或者函数都是全局污染，这样写的都是window对象

@@ -63,3 +63,13 @@ $watch()\$apply()
 子$scope会继承父级元素的$scope
 angular.element($0).scope()
 
+http-server p 8000
+
+app.js
+controller.js
+directive,js
+filters.js
+services.js
+route.js
+
+route里面的#是防止向服务器发请求

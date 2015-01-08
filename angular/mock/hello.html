@@ -8,36 +8,17 @@
 </head>
 <body ng-app = "myApp">
 
-    <h1>Sign Up</h1>
-    <form name = "addUserForm" ng-controller="AddUserController">
-        <div>First Name:<input ng-model = 'user.first' required></div>
-        <div>Last Name:<input ng-model = 'user.last' required></div>
-        <div>Email:<input type = 'email' ng-model = 'user.email' required></div>
-        <div>Age:<input type="number" ng-model='user.age' ng-maxlength='3' ng-minlength = '1'></div>
-        <div><button ng-click = 'addUser()' ng-disabled='!addUserForm.$valid'>Submit</button></div>
-        <div ng-show='message'>{{message}}</div>
-        <hello></hello>
-    </form>
+    <hello></hello>
 
     <input ng-model = "names" />
     <p ng-bind = "names"></p>
+    <a href="#/hello">hello</a>
+    <a href="#/list">list</a>
+    <div ng-view></div>
 
-    <script>
-        var myApp = angular.module('myApp',[]);
-        myApp.controller('AddUserController', function($scope){
-            $scope.message = '';
-            $scope.addUser = function () {
-                $scope.message = 'Thanse' + $scope.user.first + ', we see';
-            } 
-        });
-        myApp.directive('hello', function() {
-            return {
-                restrict: 'E',
-                template:'<div>Hi nihao</div>',
-                replace:true
-            }
-        });
-    </script>
+
+    <script src="app.js"></script>
+    <script src="controllers.js"></script>
  
 
 </body>
