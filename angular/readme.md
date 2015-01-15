@@ -74,3 +74,22 @@ provider,factory,service
 
 
 在全局空间写变量或者函数都是全局污染，这样写的都是window对象
+
+
+
+
+
+13日记录
+
+现在开始angular的学习记录可能会出现在两处，本初测试或者blog搭建处，
+
+14
+time-grunt
+load-grunt-tasks
+
+npm init以后，npm install grunt
+如果需要同时更改packagejson中得依赖项npm install grunt --save-dev
+
+
+1-15笔记
+

@@ -16,10 +16,17 @@
     <a href="#/list">list</a>
     <div ng-view></div>
 
+    <div ng-controller="myhello">
+        <input type="text" ng-model="name" />
+        <p ng-bind="name"></p>
+    </div>
 
     <script src="app.js"></script>
     <script src="controllers.js"></script>
  
+    <script>
+        var myApp = angular.module
+    </script>
 
 </body>
 </html>

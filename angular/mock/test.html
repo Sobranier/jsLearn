@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>angular learn</title>
+    <script src = "../src/angular.js"></script>
+    <script src = "../src/angular-route.js"></script>
+    <link rel = "stylesheet" href = "../src/bootstrap.min.css" />
+</head>
+<body ng-app = "myApp">
+    <div ng-controller='mm'>
+        <hello howToLoad='loadData()'>加载数据吗</hello>
+    </div>
+    <div ng-controller='nn'>
+        <hello howToLoad='loadData()'>你妹</hello>
+    </div>
+
+
+        <superman strength>力量</superman>
+        <superman strength speed>力量 敏捷</superman>
+        <superman strength speed light>力量 敏捷 发光</superman>
+
+
+    <div ng-controller = "myCtrl">
+        <div ng-repeat = "value in data">
+            <div>{{value.name}}</div><div>{{value.abc}}</div>
+        </div>
+    </div>
+
+    <nihao></nihao>
+    <nihao></nihao>
+    <nihao></nihao>
+    <div ng-controller="mit">
+        <nihao greet="sayHello(name)" falll="{{ctrlFalll}}"></nihao>
+    </div>
+
+    <div ng-controller="SomeCtrl">
+        <expander expander-title="title">
+            {{text}}
+        </expander>
+        <according>
+            <exp ng-repeat='exp in exps' exp-title='exp.title'>
+                {{exp.text}}
+            </exp> 
+        </according>
+    </div>
+
+    <div ng-controller="userlist">
+        <button class="btn"></button>
+        <div ng-repeat="value in data">
+            <div>{{value.name}}</div><div>{{value.abc|filtertest}}</div> 
+        </div>
+    </div>
+<script>
+var myApp = angular.module('myApp',[]);
+
+myApp.controller('SomeCtrl',function($scope){
+    $scope.title='点击展开';
+    $scope.text='这里是内部内容';
+    $scope.exps=[{
+        title:'weqwe',
+        text:'ewewewewewewewew'
+                },{
+        title:'232323',
+        text:'eweweeeweweeweew'
+                },{
+        title:'6556556',
+        text:'ddddddd'
+                }];
+});
+
+myApp.directive('according',function(){
+    return {
+        restrict:'EA',
+        replace:true,
+        transclude:true,
+        template:'<div ng-transclude></div>',
+        controller:function(){
+            var expp = [];
+            this.gotOpened = function(selected){
+                angular.forEach(expp,function(eee){
+                    if (selected != eee) {
+                        eee.showMe = false; 
+                    } 
+                }); 
+            };
+            this.addExp = function(eee) {
+                expp.push(eee); 
+            }
+        }
+    }
+});
+
+myApp.directive('exp',function(){
+    return {
+        restrict:'EA',
+        replace:true,
+        transclude:true,
+        require:'^?according',
+        scope:{
+            title:'=expTitle' 
+        },
+        template:'<div>'
+            +'<div ng-click="toggle()">{{title}}</div>'
+            +'<div ng-show="showMe" ng-transclude></div>'
+            +'</div>',
+        link:function(scope,element,attrs,acT){
+            scope.showMe = false;
+            acT.addExp(scope);
+            scope.toggle = function toggle(){
+                scope.showMe = !scope.showMe;
+                acT.gotOpened(scope);
+            }
+        }
+    }
+});
+
+myApp.directive('expander',function(){
+    return {
+        restrict:'EA',
+        replace:true,
+        transclude:true,
+        scope:{
+            title:'=expanderTitle' 
+        },
+        template:'<div>'
+            +'<div class="title" ng-click="toggle()">{{title}}</div>'
+            +'<div class="body" ng-show="showMe" ng-transclude></div>'
+            +'</div>',
+        link:function(scope,element,attrs){
+            scope.showMe = false;
+            scope.toggle = function(){
+                scope.showMe = !scope.showMe; 
+            }
+        }
+    }
+});
+
+myApp.controller('mit',['$scope',function($scope){
+    $scope.ctrlFalll='你妹啊';
+    $scope.sayHello=function(name){
+        console.log('hello'+ name); 
+    }
+    
+}]);
+myApp.directive('nihao',function(){
+    return {
+        scope:{
+            falll:'@',
+            greet:'&'
+        },
+        restrict:'AE',
+        template:'<div><input type="text" ng-model="username">{{username}}{{falll}}<button ng-click="greet({name:username})">11111</button></div>',
+        relace:true,
+        /*
+        link:function(scope,element,attrs){
+            scope.falll=attrs.falll; 
+        }
+        */
+         
+    }
+});
+
+myApp.directive('superman',function(){
+    return {
+        scope:{},
+        restrict:'AE',
+        controller:function($scope){
+            $scope.abilities = [];
+            this.addStrength = function(){
+                $scope.abilities.push('strength'); 
+            };
+            this.addSpeed = function(){
+                $scope.abilities.push('speed'); 
+            };
+            this.addLight = function(){
+                $scope.abilities.push('light'); 
+            };
+        },
+        link:function(scope,element,attrs){
+            element.addClass('btn btn-primary');
+            element.bind('mouseenter',function(){
+                console.log(scope.abilities); 
+            });
+        }
+    }
+});
+
+myApp.directive('strength',function(){
+    return {
+        require:'^superman', 
+        link:function(scope,element,attrs,ssst){
+            ssst.addStrength(); 
+        }
+    }
+});
+myApp.directive('speed',function(){
+    return {
+        require:'^superman', 
+        link:function(scope,element,attrs,ssst){
+            ssst.addStrength(); 
+        }
+    }
+});
+myApp.directive('light',function(){
+    return {
+        require:'^superman', 
+        link:function(scope,element,attrs,ssst){
+            ssst.addStrength(); 
+        }
+    }
+});
+
+
+myApp.run(function($templateCache){
+    $templateCache.put("fd","<div>hello<div ng-transclude></div></div>");
+});
+
+myApp.controller('mm',['$scope',function($scope){
+    $scope.loadData=function(){
+        console.log('eweL');
+    }
+}]);
+myApp.controller('nn',['$scope',function($scope){
+    $scope.loadData=function(){
+        console.log('ew');
+    }
+}]);
+myApp.directive("hello",function($templateCache){
+    return {
+        restrict:'E',
+        transclude:true,
+        template: $templateCache.get('fd'),
+        link:function(scope,element,attrs){
+            element.bind('mouseenter',function(){
+                scope.loadData(); 
+                scope.$apply('loadData()');
+                scope.$apply(attrs.howtoload);
+            });
+             
+        }
+    }
+});
+
+myApp.controller('myCtrl',['$scope','$http',function($scope,$http) {
+    $http({
+        method:'GET',
+        url:'test.json'
+    }).success(function(data,status,headers,config){
+        $scope.data=data;
+        console.log('meiyou');
+    }).error(function(data,status,headers,config){
+        console.log('出错');  
+    });
+}]);
+
+
+
+myApp.factory('userServer',['$http',function($http){
+    var doRequest = function(username,path){
+        return $http({method:'GET',url:'test.json'}); 
+    }
+    return {
+        userList:function(username){
+            return doRequest(username,'userList'); 
+        } 
+    }
+}]);
+
+myApp.controller('userlist',['$scope','userServer',
+    function($scope,userServer){
+        userServer.userList('dede').success(function(data,status){
+            $scope.data=data;  
+        }).error(function(data,status){
+            console.log('wrong');
+        });
+    }
+]);
+
+myApp.filter('filtertest',function(){
+    return function(item){
+        return item + 'pppppp';
+    }
+});
+
+</script>
+</body>
+</html>
