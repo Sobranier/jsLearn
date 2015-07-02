@@ -8,10 +8,10 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
+    <div id="content"></div>
 
     <div id="test"></div>
-    <div id="jqBtn">click</div>
-    <div id="ttt"></div>
+    <div id="example"></div>
 
     <script type="text/jsx">
         var Comment = React.createClass({
@@ -187,28 +187,6 @@
             document.getElementById('test')
         );
 
-
-        var TTT = React.createClass({
-            render: function() {
-                return (
-                    <h2>HELLLLLOOOOOO</h2>
-                );
-            }
-        });
-        React.render(
-            <TTT />,
-            document.getElementsById('ttt')
-        );
-
-    </script>
-    <script>
-        $(function(){
-            $('#jqBtn').click(function() {
-                //$('#test>div>p>span:first-child').append($('<span>jquery dom</span>'));
-                
-                $('#test>div').append($('#test>div>p:first-child>span'));
-            });
-        })
     </script>
 
 </body>
