@@ -8,208 +8,73 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
-
     <div id="test"></div>
-    <div id="jqBtn">click</div>
-    <div id="ttt"></div>
+    <div id="test2"></div>
 
-    <script type="text/jsx">
-        var Comment = React.createClass({
-            render: function() {
-                return (
-                    <div className="comment">
-                        <h2 className="commentAuthor">
-                            {this.props.author}
-                        </h2>
-                        {marked(this.props.children.toString())}
-                    </div>
-                );
-            }
-        });
-        var CommentList = React.createClass({
-            render: function() {
-                var commentNodes = this.props.data.map(function (comment) {
-                    return (
-                        <Comment author={comment.author}>
-                            {comment.text}
-                        </Comment>
-                    );
-                });
-
-
-                return (
-                    <div className="commentList">
-                        {commentNodes}
-                    </div>
-                );
-            }
-        });
-        var CommentForm = React.createClass({
-            handleSubmit: function(e) {
-                e.preventDefault();
-                var author = React.findDOMNode(this.refs.author).value.trim();
-                var text = React.findDOMNode(this.refs.text).value.trim();
-                if (!text || !author) {
-                    return;
-                }
-                this.props.onCommentSubmit({author: author, text: text});
-                React.findDOMNode(this.refs.author).value = '';
-                React.findDOMNode(this.refs.text).value = '';
-                return;
-            },
-            render: function() {
-                return (
-                    <form className="commentForm" onSubmit={this.handleSubmit}>
-                        <input type="text" placeholder="Your name" ref="author"/>
-                        <input type="text" placeholder="Say something ..." ref="text"/>
-                        <input type="submit" value="POST" />
-                    </form>
-                );
-            }
-        });
-        var CommentBox = React.createClass({
-            loadCommentsFromServer: function() {
-                $.ajax({
-                    url: this.props.url,
-                    dateType: 'json',
-                    cache: false,
-                    success: function(data) {
-                        this.setState({data: data});
-                    }.bind(this),
-                    error: function(xhr, status, err) {
-                        console.error(this.props.url, status, err.toString());
-                    }.bind(this)
-                });           
-            },
-            handleCommentSubmit: function(comment) {
-                var comments = this.state.data;
-                var newComments = comments.concat([comment]);
-                this.setState({data: newComments});
-                $.ajax({
-                    url: this.props.url,
-                    dataType: 'json',
-                    type: 'POST',
-                    data: comment,
-                    success: function(data) {
-                        this.setState({data: data});
-                    }.bind(this),
-                    error: function(xhr, status, err) {
-                        console.error(this.props.url, status, err.toString());
-                    }.bind(this)
-                });
-            },
-            getInitialState: function() {
-                return {data: []}
-            },
-            componentDidMount: function() {
-                this.loadCommentsFromServer();
-                setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-            },
-            render: function() {
-                return (
-                    <div className="commentBox">
-                        <h1>Comments</h1>
-                        <CommentList data={this.state.data}/>
-                        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-                    </div>
-                );
-            }
-        });
-
-        /*
-        React.render(
-            <CommentBox url="comments.json" pollInterval={5000}/>,
-            document.getElementById('content')
-        );*/
-
-        var Ddp = React.createClass({
-            getInitialState: function() {
-                return {date: this.props.date}
-            },
-            handleClick: function() {
-                this.setState({date: this.state.date + 1});
-            },
-            render: function() {
-                var date = this.state.date;
-                return (
-                    <div>
-                        <Ccp date={date}/>
-                        <p onClick={this.handleClick}>{date}父元素切换</p>
-                    </div>
-                );
-            }
-        });
-
-        var Ccp = React.createClass({
-            getInitialState: function() {
-                return {isbbq : false}
-            },
-            handleClick: function(event) {
-                this.setState({isbbq: !this.state.isbbq});
-            },
-
-
-            componentWillMount: function() {
-                console.log('----componentWillMount');
-            },
-            componentDidMount: function() {
-                console.log('----componentDidMount');
-            },
-            componentWillReceiveProps: function(nextProps) {
-                console.log('----componentWillReceiveProps');
-            },
-            shouldComponentUpdate: function(nextProps, nextState) {
-                console.log('----shouldComponentUpdate');
-                return true;
-            },
-            componentWillUpdate: function() {
-                console.log('----componentWillUpdate');
-            },
-            componentDidUpdate: function() {
-                console.log('----componentDidUpdate');
-            },
-            componentWillUnmount: function() {
-                console.log('----componentWillUnmount');
-            },
-            render: function() {
-                var text = this.state.isbbq ? '尼玛' : 'xxxxx';
-                return (
-                <p onClick={this.handleClick}>
-                    {this.props.date}
-                    {text}
-                    </p>
-                );
-            }
-        });
-
-        React.render(
-            <Ddp date='9' />,
-            document.getElementById('test')
+<script type="text/jsx">
+    var IntervalMixin = {
+        setInterval: function(callback, interval) {
+            var token = setInterval(callback, interval);
+            this._intervals.push(token);
+            return token;
+        },
+        componentDidMount: function() {
+            this._intervals = [];
+        },
+        componentWillUnmount: function() {
+            this._intervals.map(clearInterval);
+        }
+    };
+    var Since2015 = React.createClass({
+        mixins: [IntervalMixin],
+        componentDidMount: function() {
+            this.setInterval(this.forceUpdate.bind(this), 1000);
+        },
+        render: function() {
+            var from = Number(new Date(2015, 0, 1));
+            var to = Date.now();
+            return (
+            <div>{Math.round(to - from) / 1000}s</div>
+            );
+        }
+    });
+    React.render(
+        <Since2015 />,
+        document.getElementById('test')
         );
 
 
-        var TTT = React.createClass({
-            render: function() {
-                return (
-                    <h2>HELLLLLOOOOOO</h2>
-                );
-            }
-        });
-        React.render(
-            <TTT />,
-            document.getElementsById('ttt')
-        );
 
-    </script>
-    <script>
-        $(function(){
-            $('#jqBtn').click(function() {
-                //$('#test>div>p>span:first-child').append($('<span>jquery dom</span>'));
-                
-                $('#test>div').append($('#test>div>p:first-child>span'));
+    var Myform = React.createClass({
+        getInitialState: function () {
+            return {
+                helloTo: "Hello World!"
+            };
+        },
+        handleChange: function (event) {
+            this.setState({
+                helloTo: event.target.value.toUpperCase()
             });
-        })
-    </script>
-
+        },
+        submitHandler: function (event) {
+            event.preventDefault();
+            alert(this.state.helloTo);
+        },
+        render: function () {
+            return (
+                <form onSubmit={this.submitHandler}>
+                    <input type="text" value={this.state.helloTo}
+                    onChange={this.handleChange} />
+                    <br/>
+                    <button type="submit">Speak</button>
+                </form>
+            );
+        }
+    });
+    React.render(
+        <Myform />,
+        document.getElementById('test2')
+    );
+</script>
 </body>
 </html>
