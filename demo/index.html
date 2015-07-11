@@ -48,7 +48,8 @@
     var Myform = React.createClass({
         getInitialState: function () {
             return {
-                helloTo: "Hello World!"
+                helloTo: "Hello World!",
+                options: ["B"]
             };
         },
         handleChange: function (event) {
@@ -56,15 +57,34 @@
                 helloTo: event.target.value.toUpperCase()
             });
         },
+        handleSelectChange: function (event) {
+            var checked = [],
+                sel = event.target;
+            for(var i = 0; i < sel.length; i ++) {
+                var option = sel.options[i];
+                if (option.selected) {
+                    checked.push(option.value);
+                }
+            }
+            this.setState({
+                options: checked
+            });
+        },
         submitHandler: function (event) {
             event.preventDefault();
-            alert(this.state.helloTo);
+            alert(this.state.options);
         },
         render: function () {
             return (
                 <form onSubmit={this.submitHandler}>
                     <input type="text" value={this.state.helloTo}
                     onChange={this.handleChange} />
+                    <br/>
+                    <select multiple="true" value={this.state.options} onChange={this.handleSelectChange}>
+                        <option value="A">F</option>
+                        <option value="B">S</option>
+                        <option value="C">T</option>
+                    </select>
                     <br/>
                     <button type="submit">Speak</button>
                 </form>
