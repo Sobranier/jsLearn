@@ -2,99 +2,23 @@
 <html>
 <head>
     <title>HELLO REACT</title>
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
     <script src="../node_modules/react/dist/react.js"></script>
+    <script src="../node_modules/react-bootstrap/dist/react-bootstrap.js"></script>
     <script src="../node_modules/react/dist/JSXTransformer.js"></script>
     <script src="../node_modules/marked/marked.min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
-    <div id="test"></div>
-    <div id="test2"></div>
+<div id="test"></div>
+
+<script type="text/jsx" src="./components/Demo.react.js"></script>
+<script type="text/jsx" src="./components/Form.react.js"></script>
+<script type="text/jsx" src="./components/Grid.react.js"></script>
 
 <script type="text/jsx">
-    var IntervalMixin = {
-        setInterval: function(callback, interval) {
-            var token = setInterval(callback, interval);
-            this._intervals.push(token);
-            return token;
-        },
-        componentDidMount: function() {
-            this._intervals = [];
-        },
-        componentWillUnmount: function() {
-            this._intervals.map(clearInterval);
-        }
-    };
-    var Since2015 = React.createClass({
-        mixins: [IntervalMixin],
-        componentDidMount: function() {
-            this.setInterval(this.forceUpdate.bind(this), 1000);
-        },
-        render: function() {
-            var from = Number(new Date(2015, 0, 1));
-            var to = Date.now();
-            return (
-            <div>{Math.round(to - from) / 1000}s</div>
-            );
-        }
-    });
-    React.render(
-        <Since2015 />,
-        document.getElementById('test')
-        );
-
-
-
-    var Myform = React.createClass({
-        getInitialState: function () {
-            return {
-                helloTo: "Hello World!",
-                options: ["B"]
-            };
-        },
-        handleChange: function (event) {
-            this.setState({
-                helloTo: event.target.value.toUpperCase()
-            });
-        },
-        handleSelectChange: function (event) {
-            var checked = [],
-                sel = event.target;
-            for(var i = 0; i < sel.length; i ++) {
-                var option = sel.options[i];
-                if (option.selected) {
-                    checked.push(option.value);
-                }
-            }
-            this.setState({
-                options: checked
-            });
-        },
-        submitHandler: function (event) {
-            event.preventDefault();
-            alert(this.state.options);
-        },
-        render: function () {
-            return (
-                <form onSubmit={this.submitHandler}>
-                    <input type="text" value={this.state.helloTo}
-                    onChange={this.handleChange} />
-                    <br/>
-                    <select multiple="true" value={this.state.options} onChange={this.handleSelectChange}>
-                        <option value="A">F</option>
-                        <option value="B">S</option>
-                        <option value="C">T</option>
-                    </select>
-                    <br/>
-                    <button type="submit">Speak</button>
-                </form>
-            );
-        }
-    });
-    React.render(
-        <Myform />,
-        document.getElementById('test2')
-    );
+React.render(
+    <HelloDemo />,
+    document.getElementById('test')
+);
 </script>
-</body>
-</html>

@@ -10,6 +10,7 @@
     "browserify": "^10.2.4",
     "envify": "^3.4.0",
     "flux": "^2.0.3",
+    "form-serialize": "^0.6.0",
     "gulp": "^3.9.0",
     "jest-cli": "^0.4.15",
     "jquery": "^2.1.4",
@@ -20,26 +21,25 @@
     "uglify-js": "^2.4.23",
     "watchify": "^3.2.3"
   },
-    "scripts": {
-        "start": "watchify -o js/bundle.js -v -d js/app.js",
-        "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js",
-        "test": "jest"
-    },
-    "author": "Bill Fisher",
-    "browserify": {
-        "transform": [
-            "reactify",
-            "envify"
-        ]
-    },
-    "jest": {
-        "rootDir": "./js"
-    },
+  "scripts": {
+    "start": "watchify -o js/bundle.js -v -d js/app.js",
+    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js",
+    "test": "jest"
+  },
+  "author": "",
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
+  },
+  "jest": {
+    "rootDir": "./js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sobranier/jsLearn.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Sobranier/jsLearn/issues"
