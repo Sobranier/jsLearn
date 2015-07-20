@@ -12,7 +12,6 @@
     "flux": "^2.0.3",
     "form-serialize": "^0.6.0",
     "gulp": "^3.9.0",
-    "jest-cli": "^0.4.15",
     "jquery": "^2.1.4",
     "jsx-loader": "^0.13.2",
     "keymirror": "^0.1.1",
@@ -22,9 +21,6 @@
     "watchify": "^3.2.3"
   },
   "scripts": {
-    "start": "watchify -o js/bundle.js -v -d js/app.js",
-    "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js",
-    "test": "jest"
   },
   "author": "",
   "browserify": {
