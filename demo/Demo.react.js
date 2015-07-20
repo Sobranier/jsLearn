@@ -136,3 +136,8 @@ var HelloDemo = React.createClass({
         );
     }
 });
+
+React.render(
+    <HelloDemo />,
+    document.getElementById('test')
+);
