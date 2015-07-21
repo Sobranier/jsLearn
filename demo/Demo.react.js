@@ -1,7 +1,9 @@
-import ReactBootstrap, {Panel, Input, Button, ButtonInput, Pagination} from 'react-bootstrap';
+import ReactBootstrap, {Panel, Input, Button, ButtonInput, Pagination, Modal} from 'react-bootstrap';
 import React, {Component} from 'react';
 import Form from '@myfe/react-form';
 import Grid from '@myfe/react-grid';
+import Dialog from '@myfe/react-dialog';
+
 
 class HelloDemo extends Component {
     constructor(props) {
@@ -9,7 +11,8 @@ class HelloDemo extends Component {
         this.state = {
             query: '',
             dataList: [],
-            headList: this.GridPrepare()
+            headList: this.GridPrepare(),
+            infoShow: false
         };
     };
 
@@ -93,8 +96,14 @@ class HelloDemo extends Component {
         this.setState({dataList: data});
     };
 
+    infoShowToggle() {
+        this.setState({
+            infoShow: !this.state.infoShow
+        });
+    };
+
     render() {
-        var dataList = this.state.dataList;
+        let dataList = this.state.dataList;
         return (
             <div className={"helloworld"}>
                 <Panel header={"搜索区域"} bsStyle='info' className='container'>
@@ -122,7 +131,16 @@ class HelloDemo extends Component {
                                 <option value="0">否</option>
                             </Input>
                         </div>
-                        <div className="col-sm-2">
+                        <div className="col-sm-1">
+                            <ButtonInput
+                                bsStyle="info"
+                                bsSize="small"
+                                block
+                                value="确认"
+                                onClick={this.infoShowToggle.bind(this)}
+                            />
+                        </div>
+                        <div className="col-sm-1">
                             <ButtonInput
                                 bsStyle='primary'
                                 bsSize='small'
@@ -146,6 +164,13 @@ class HelloDemo extends Component {
                         />
                     </div>
                 </div>
+
+                <Dialog 
+                    title={'提示框'}
+                    show={this.state.infoShow}
+                    onHide={this.infoShowToggle.bind(this)}
+                >
+                </Dialog>
             </div>
         );
     };
