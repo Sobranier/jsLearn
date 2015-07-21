@@ -1,17 +1,19 @@
-var Panel = ReactBootstrap.Panel,
-    Input = ReactBootstrap.Input,
-    Button = ReactBootstrap.Button,
-    ButtonInput = ReactBootstrap.ButtonInput;
+import ReactBootstrap, {Panel, Input, Button, ButtonInput, Pagination} from 'react-bootstrap';
+import React, {Component} from 'react';
+import Form from '@myfe/react-form';
+import Grid from '@myfe/react-grid';
 
-var HelloDemo = React.createClass({
-    getInitialState: function() {
-        return {
+class HelloDemo extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             query: '',
             dataList: [],
             headList: this.GridPrepare()
         };
-    },
-    GridPrepare: function() {   
+    };
+
+    GridPrepare() {   
         var headList = [{
                 label: '#',
                 name: 'id'
@@ -73,8 +75,9 @@ var HelloDemo = React.createClass({
             console.log(1);
         }
         return headList;
-    },
-    getFormData: function(info) {
+    };
+
+    getFormData(info) {
         console.log('Form对外输出，模拟生成Grid');
         var data = [{
                 id: '1',
@@ -88,13 +91,14 @@ var HelloDemo = React.createClass({
                 ct: (new Date()).toString()
             }];
         this.setState({dataList: data});
-    },
-    render: function() {
+    };
+
+    render() {
         var dataList = this.state.dataList;
         return (
             <div className={"helloworld"}>
                 <Panel header={"搜索区域"} bsStyle='info' className='container'>
-                    <Form url="xxx/ooo" className={"form-horizontal row"} onVlidator={this.getFormData}>
+                    <Form url="xxx/ooo" className={"form-horizontal row"} onVlidator={this.getFormData.bind(this)}>
                         <div className="col-sm-5">
                             <Input
                                 type="text"
@@ -131,11 +135,21 @@ var HelloDemo = React.createClass({
                 </Panel>
                 <div className="container table-responsive">
                     <Grid headList={this.state.headList} dataList={dataList}></Grid>
+                    <div className="col-sm-4 col-sm-offset-8">
+                        <Pagination
+                            prev={true}
+                            next={true}
+                            ellipsis={true}
+                            maxButtons={5}
+                            activePage={this.state.activePage}
+                            onSelect={this.handleSelect}
+                        />
+                    </div>
                 </div>
             </div>
         );
-    }
-});
+    };
+};
 
 React.render(
     <HelloDemo />,
