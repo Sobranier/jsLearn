@@ -12,7 +12,8 @@ class HelloDemo extends Component {
             query: '',
             dataList: [],
             headList: this.GridPrepare(),
-            infoShow: false
+            infoShow: false,
+            subShow: false
         };
     };
 
@@ -37,7 +38,7 @@ class HelloDemo extends Component {
                     type: 'button',
                     value: '匹配',
                     class: 'primary',
-                    action: matchAction
+                    action: this.matchAction.bind(this)
                 }, {
                     type: 'a',
                     value: '链接',
@@ -53,7 +54,8 @@ class HelloDemo extends Component {
                 }, {
                     type: 'button',
                     value: '删除',
-                    class: 'danger'
+                    class: 'danger',
+                    action: this.matchAction.bind(this)
                 }]
             }, {
                 label: '再再操作',
@@ -74,9 +76,7 @@ class HelloDemo extends Component {
             };
             return ct;
         }
-        function matchAction() {
-            console.log(1);
-        }
+
         return headList;
     };
 
@@ -94,6 +94,19 @@ class HelloDemo extends Component {
                 ct: (new Date()).toString()
             }];
         this.setState({dataList: data});
+    };
+
+    matchAction(lineData) {
+        this.setState({
+            subShow: !this.state.subShow,
+            subInfo: lineData
+        });
+    };
+
+    subShowToggle() {
+        this.setState({
+            subShow: !this.state.subShow
+        });
     };
 
     infoShowToggle() {
@@ -170,6 +183,14 @@ class HelloDemo extends Component {
                     show={this.state.infoShow}
                     onHide={this.infoShowToggle.bind(this)}
                 >
+                    {'这是一个展示框'}
+                </Dialog>
+                <Dialog
+                    title={'确认信息'}
+                    show={this.state.subShow}
+                    onHide={this.subShowToggle.bind(this)}
+                >
+                    {this.state.subInfo}
                 </Dialog>
             </div>
         );

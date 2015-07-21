@@ -87,7 +87,8 @@
 	            query: '',
 	            dataList: [],
 	            headList: this.GridPrepare(),
-	            infoShow: false
+	            infoShow: false,
+	            subShow: false
 	        };
 	    }
 
@@ -114,7 +115,7 @@
 	                    type: 'button',
 	                    value: '匹配',
 	                    'class': 'primary',
-	                    action: matchAction
+	                    action: this.matchAction.bind(this)
 	                }, {
 	                    type: 'a',
 	                    value: '链接',
@@ -130,7 +131,8 @@
 	                }, {
 	                    type: 'button',
 	                    value: '删除',
-	                    'class': 'danger'
+	                    'class': 'danger',
+	                    action: this.matchAction.bind(this)
 	                }]
 	            }, {
 	                label: '再再操作',
@@ -151,9 +153,7 @@
 	                };
 	                return ct;
 	            }
-	            function matchAction() {
-	                console.log(1);
-	            }
+
 	            return headList;
 	        }
 	    }, {
@@ -172,6 +172,21 @@
 	                ct: new Date().toString()
 	            }];
 	            this.setState({ dataList: data });
+	        }
+	    }, {
+	        key: 'matchAction',
+	        value: function matchAction(lineData) {
+	            this.setState({
+	                subShow: !this.state.subShow,
+	                subInfo: lineData
+	            });
+	        }
+	    }, {
+	        key: 'subShowToggle',
+	        value: function subShowToggle() {
+	            this.setState({
+	                subShow: !this.state.subShow
+	            });
 	        }
 	    }, {
 	        key: 'infoShowToggle',
@@ -271,11 +286,24 @@
 	                        })
 	                    )
 	                ),
-	                _react2['default'].createElement(_myfeReactDialog2['default'], {
-	                    title: '提示框',
-	                    show: this.state.infoShow,
-	                    onHide: this.infoShowToggle.bind(this)
-	                })
+	                _react2['default'].createElement(
+	                    _myfeReactDialog2['default'],
+	                    {
+	                        title: '提示框',
+	                        show: this.state.infoShow,
+	                        onHide: this.infoShowToggle.bind(this)
+	                    },
+	                    '这是一个展示框'
+	                ),
+	                _react2['default'].createElement(
+	                    _myfeReactDialog2['default'],
+	                    {
+	                        title: '确认信息',
+	                        show: this.state.subShow,
+	                        onHide: this.subShowToggle.bind(this)
+	                    },
+	                    this.state.subInfo
+	                )
 	            );
 	        }
 	    }]);
@@ -28014,7 +28042,7 @@
 	                headList = this.props.headList,
 	                lines = [];
 	            for (var i = 0, len = data.length; i < len; i++) {
-	                lines.push(_react2['default'].createElement(_GridLineReactJs2['default'], { lineData: data[i], rowInfo: headList }));
+	                lines.push(_react2['default'].createElement(_GridLineReactJs2['default'], { key: i, lineData: data[i], rowInfo: headList }));
 	            }
 	            return _react2['default'].createElement(
 	                'table',
@@ -28077,19 +28105,16 @@
 	    _createClass(GridHead, [{
 	        key: 'render',
 	        value: function render() {
-	            var data = this.props.lineData,
-	                line = [];
-	            for (var i = 0, len = data.length; i < len; i++) {
-	                line.push(_react2['default'].createElement(
-	                    'th',
-	                    null,
-	                    data[i].label
-	                ));
-	            }
 	            return _react2['default'].createElement(
 	                'tr',
 	                null,
-	                line
+	                this.props.lineData.map(function (result) {
+	                    return _react2['default'].createElement(
+	                        'th',
+	                        { key: result.label },
+	                        result.label
+	                    );
+	                })
 	            );
 	        }
 	    }]);
@@ -28148,7 +28173,8 @@
 	            for (var i = 0, len = rowInfo.length; i < len; i++) {
 	                line.push(_react2['default'].createElement(_GridTdReactJs2['default'], {
 	                    info: rowInfo[i],
-	                    lineData: data
+	                    lineData: data,
+	                    key: i
 	                }));
 	            }
 	            return _react2['default'].createElement(
@@ -28223,7 +28249,8 @@
 	                                    {
 	                                        bsStyle: element['class'],
 	                                        bsSize: element.size ? element.size : 'xsmall',
-	                                        onClick: element.action
+	                                        onClick: element.action.bind(null, lineData),
+	                                        key: index
 	                                    },
 	                                    element.value
 	                                ));
@@ -28233,7 +28260,9 @@
 	                                    _reactBootstrap.Button,
 	                                    {
 	                                        bsStyle: 'link',
-	                                        href: element.url
+	                                        href: element.url,
+	                                        target: '_blank',
+	                                        key: index
 	                                    },
 	                                    element.value
 	                                ));
@@ -28241,13 +28270,16 @@
 	                            case 'input':
 	                                content.push(_react2['default'].createElement(_reactBootstrap.Input, {
 	                                    type: 'text',
-	                                    value: element.value
+	                                    value: element.value,
+	                                    key: index
 	                                }));
 	                                break;
 	                            case 'html':
 	                                content.push(_react2['default'].createElement(
 	                                    'span',
-	                                    null,
+	                                    {
+	                                        key: index
+	                                    },
 	                                    element.value
 	                                ));
 	                                break;
@@ -28326,11 +28358,7 @@
 	                _react2['default'].createElement(
 	                    _reactBootstrap.Modal.Body,
 	                    null,
-	                    _react2['default'].createElement(
-	                        'p',
-	                        null,
-	                        '这是一个展示框'
-	                    )
+	                    this.props.children
 	                )
 	            );
 	        }
