@@ -3,10 +3,11 @@ var gulp = require('gulp'),
     runSquence = require('run-sequence');
 
 gulp.task('pack', function () {
-    return gulp.src('./demo/Demo.react.js')
+    return gulp.src('./demo/Test.react.js')
         .pipe(webpack({
             entry: {
-                demo: './demo/Demo.react.js'
+                demo: './demo/Demo.react.js',
+                test: './demo/Test.react.js'
             },
             output: {
                 filename: '[name].js'

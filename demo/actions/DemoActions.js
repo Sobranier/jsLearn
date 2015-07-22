@@ -3,7 +3,10 @@ import alt from '../alt';
 class DemoActions {
     constructor() {
         this.generateActions(
-            'updateDemo'
+            'showDialog',
+            'showDialog2',
+            'closeDialog',
+            'closeDialog2'
         )
     }
 }
