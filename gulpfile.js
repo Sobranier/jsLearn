@@ -6,8 +6,7 @@ gulp.task('pack', function () {
     return gulp.src('./demo/Demo.react.js')
         .pipe(webpack({
             entry: {
-                demo: './demo/Demo.react.js',
-                altbase: './demo/alt.js'
+                demo: './demo/Demo.react.js'
             },
             output: {
                 filename: '[name].js'
