@@ -3,11 +3,6 @@ import TodoActions from '../actions/TodoActions';
 
 class TodoStore {
     constructor() {
-        /*
-        this.bindListeners({
-            updateTodo: TodoActions.updateTodo
-        });*/
-
         this.bindActions(TodoActions);
 
         this.state = {

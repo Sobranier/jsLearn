@@ -5,45 +5,9 @@ import Grid from '@myfe/react-grid';
 import Dialog from '@myfe/react-dialog';
 
 
-/*以下是一段测试，测试alt的store用法*/
-import TodoStore from './stores/TodoStore';
-import TodoActions from './actions/TodoActions';
-
-class Hello extends Component {
-    constructor(props){
-        super(props);
-        this.state = TodoStore.getState();
-    }
-    componentDidMount() {
-        TodoStore.listen(this._onChange.bind(this));
-    }
-
-    componentWillUnmount() {
-        TodoStore.unlisten(this._onChange.bind(this));
-    }
-
-    render() {
-        return (
-            <ul>
-                {this.state.todos.map((todo) => {
-                    return (
-                        <li key={todo.id} onClick={this._handleClick}>{todo.text}</li>
-                    );
-                })}
-            </ul>
-        );
-    }
-
-    _handleClick(e) {
-        TodoActions.updateTodo({id:new Date,text:'XXX'});
-    }
-
-    _onChange(state) {
-        this.setState(state);
-    }
-}
-
-
+/**
+ *  define class HelloDemo
+ **/
 class HelloDemo extends Component {
     constructor(props) {
         super(props);
@@ -52,9 +16,23 @@ class HelloDemo extends Component {
             dataList: [],
             headList: this.GridPrepare(),
             infoShow: false,
-            subShow: false
+            subShow: false,
+            subShow2: false,
+            subDataList: [],
+            subHeadList: this.subGridPrepare(),
         };
     };
+
+    subGridPrepare() {
+        var headList = [{
+            label: '#',
+            name: 'id'
+        }, {
+            label: '影片',
+            name: 'nm'
+        }];
+        return headList;
+    }
 
     GridPrepare() {   
         var headList = [{
@@ -78,6 +56,11 @@ class HelloDemo extends Component {
                     value: '匹配',
                     class: 'primary',
                     action: this.matchAction.bind(this)
+                }, {
+                    type: 'button',
+                    value: '查看',
+                    class: 'info',
+                    action: this.matchAction2.bind(this)
                 }, {
                     type: 'a',
                     value: '链接',
@@ -142,9 +125,32 @@ class HelloDemo extends Component {
         });
     };
 
+    matchAction2(lineData) {
+        var data = [{
+                id: '1',
+                nm: '道士下山',
+                active: true,
+                ct: (new Date()).toString()
+            }, {
+                id: '2',
+                nm: '道士下山2',
+                active: false,
+                ct: (new Date()).toString()
+            }];
+        this.setState({
+            subShow2: !this.state.subShow2,
+            subDataList: data
+        });
+    }
+
     subShowToggle() {
         this.setState({
             subShow: !this.state.subShow
+        });
+    };
+    subShowToggle2() {
+        this.setState({
+            subShow2: !this.state.subShow2
         });
     };
 
@@ -155,7 +161,8 @@ class HelloDemo extends Component {
     };
 
     render() {
-        let dataList = this.state.dataList;
+        let dataList = this.state.dataList,
+            subDataList = this.state.subDataList;
         return (
             <div className={"helloworld"}>
                 <Panel header={"搜索区域"} bsStyle='info' className='container'>
@@ -231,12 +238,23 @@ class HelloDemo extends Component {
                 >
                     {this.state.subInfo}
                 </Dialog>
+                <Dialog
+                    title={'信息表'}
+                    show={this.state.subShow2}
+                    onHide={this.subShowToggle2.bind(this)}
+                >
+                    <Grid headList={this.state.subHeadList} dataList={subDataList}></Grid>
+                </Dialog>
             </div>
         );
     };
 };
 
+
+/**
+ *  render react
+ **/
 React.render(
-    <Hello />,
+    <HelloDemo />,
     document.getElementById('test')
 );
