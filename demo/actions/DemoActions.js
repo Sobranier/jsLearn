@@ -6,7 +6,8 @@ class DemoActions {
             'showDialog',
             'showDialog2',
             'closeDialog',
-            'closeDialog2'
+            'closeDialog2',
+            'renderGrid'
         )
     }
 }

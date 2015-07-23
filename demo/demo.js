@@ -72,7 +72,7 @@
 
 	var _myfeReactGrid2 = _interopRequireDefault(_myfeReactGrid);
 
-	var _myfeReactDialog = __webpack_require__(242);
+	var _myfeReactDialog = __webpack_require__(243);
 
 	var _myfeReactDialog2 = _interopRequireDefault(_myfeReactDialog);
 
@@ -28085,9 +28085,9 @@
 
 	var _GridHeadReactJs2 = _interopRequireDefault(_GridHeadReactJs);
 
-	var _GridLineReactJs = __webpack_require__(240);
+	var _GridBodyReactJs = __webpack_require__(240);
 
-	var _GridLineReactJs2 = _interopRequireDefault(_GridLineReactJs);
+	var _GridBodyReactJs2 = _interopRequireDefault(_GridBodyReactJs);
 
 	var Grid = (function (_Component) {
 	    _inherits(Grid, _Component);
@@ -28101,32 +28101,18 @@
 	    _createClass(Grid, [{
 	        key: 'render',
 	        value: function render() {
-	            var data = this.props.dataList,
-	                headList = this.props.headList,
-	                lines = [];
-	            for (var i = 0, len = data.length; i < len; i++) {
-	                lines.push(_react2['default'].createElement(_GridLineReactJs2['default'], {
-	                    key: i,
-	                    lineData: data[i],
-	                    lineInfo: { lineIndex: i },
-	                    rowInfo: headList
-	                }));
-	            }
+	            var rows = this.props.rows,
+	                columns = this.props.columns;
 	            return _react2['default'].createElement(
 	                'table',
 	                { className: 'table table-bordered table-hover' },
-	                _react2['default'].createElement(
-	                    'thead',
-	                    null,
-	                    _react2['default'].createElement(_GridHeadReactJs2['default'], {
-	                        lineData: headList
-	                    })
-	                ),
-	                _react2['default'].createElement(
-	                    'tbody',
-	                    null,
-	                    lines
-	                )
+	                _react2['default'].createElement(_GridHeadReactJs2['default'], {
+	                    columns: columns
+	                }),
+	                _react2['default'].createElement(_GridBodyReactJs2['default'], {
+	                    columns: columns,
+	                    rows: rows
+	                })
 	            );
 	        }
 	    }]);
@@ -28176,17 +28162,21 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2['default'].createElement(
-	                'tr',
+	                'thead',
 	                null,
-	                this.props.lineData.map(function (result) {
-	                    return _react2['default'].createElement(
-	                        'th',
-	                        {
-	                            key: result.label
-	                        },
-	                        result.label
-	                    );
-	                })
+	                _react2['default'].createElement(
+	                    'tr',
+	                    null,
+	                    this.props.columns.map(function (column) {
+	                        return _react2['default'].createElement(
+	                            'th',
+	                            {
+	                                key: column.label
+	                            },
+	                            column.label
+	                        );
+	                    })
+	                )
 	            );
 	        }
 	    }]);
@@ -28223,51 +28213,115 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GridTdReactJs = __webpack_require__(241);
+	var _GridRowReactJs = __webpack_require__(241);
 
-	var _GridTdReactJs2 = _interopRequireDefault(_GridTdReactJs);
+	var _GridRowReactJs2 = _interopRequireDefault(_GridRowReactJs);
 
-	var GridLine = (function (_Component) {
-	    _inherits(GridLine, _Component);
+	var GridBody = (function (_Component) {
+	    _inherits(GridBody, _Component);
 
-	    function GridLine(props) {
-	        _classCallCheck(this, GridLine);
+	    function GridBody(props) {
+	        _classCallCheck(this, GridBody);
 
-	        _get(Object.getPrototypeOf(GridLine.prototype), 'constructor', this).call(this, props);
+	        _get(Object.getPrototypeOf(GridBody.prototype), 'constructor', this).call(this, props);
 	    }
 
-	    _createClass(GridLine, [{
+	    _createClass(GridBody, [{
 	        key: 'render',
 	        value: function render() {
-	            var lineData = this.props.lineData,
-	                rowInfo = this.props.rowInfo,
-	                TdInfo = this.props.lineInfo,
-	                line = [];
-	            for (var i = 0, len = rowInfo.length; i < len; i++) {
-	                TdInfo.rowIndex = i;
-	                line.push(_react2['default'].createElement(_GridTdReactJs2['default'], {
-	                    key: i,
-	                    lineData: lineData,
-	                    TdInfo: TdInfo,
-	                    rowInfo: rowInfo[i]
-	                }));
-	            }
+	            var rows = this.props.rows,
+	                columns = this.props.columns;
 	            return _react2['default'].createElement(
-	                'tr',
+	                'tbody',
 	                null,
-	                line
+	                rows.map(function (row, index) {
+	                    return _react2['default'].createElement(_GridRowReactJs2['default'], {
+	                        key: index,
+	                        row: row,
+	                        columns: columns,
+	                        info: { rowIndex: index }
+	                    });
+	                })
 	            );
 	        }
 	    }]);
 
-	    return GridLine;
+	    return GridBody;
 	})(_react.Component);
 
-	exports['default'] = GridLine;
+	;
+
+	exports['default'] = GridBody;
 	module.exports = exports['default'];
 
 /***/ },
 /* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GridTdReactJs = __webpack_require__(242);
+
+	var _GridTdReactJs2 = _interopRequireDefault(_GridTdReactJs);
+
+	var GridRow = (function (_Component) {
+	    _inherits(GridRow, _Component);
+
+	    function GridRow(props) {
+	        _classCallCheck(this, GridRow);
+
+	        _get(Object.getPrototypeOf(GridRow.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(GridRow, [{
+	        key: 'render',
+	        value: function render() {
+	            var row = this.props.row,
+	                columns = this.props.columns,
+	                info = this.props.info;
+
+	            return _react2['default'].createElement(
+	                'tr',
+	                null,
+	                columns.map(function (column, index) {
+	                    info.rowIndex = index;
+	                    return _react2['default'].createElement(_GridTdReactJs2['default'], {
+	                        key: index,
+	                        row: row,
+	                        column: column,
+	                        info: info
+	                    });
+	                })
+	            );
+	        }
+	    }]);
+
+	    return GridRow;
+	})(_react.Component);
+
+	exports['default'] = GridRow;
+	module.exports = exports['default'];
+
+/***/ },
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28306,18 +28360,19 @@
 	    _createClass(GridTd, [{
 	        key: 'render',
 	        value: function render() {
-	            var info = this.props.rowInfo,
-	                lineData = this.props.lineData,
-	                TdInfo = this.props.TdInfo,
+	            var row = this.props.row,
+	                column = this.props.column,
+	                info = this.props.info,
 	                content = '';
-	            if (!info.renderer) {
-	                content = lineData[info.name];
+
+	            if (!column.renderer) {
+	                content = row[column.name];
 	            } else {
-	                if (!Array.isArray(info.renderer)) {
-	                    content = info.renderer(lineData[info.name]);
+	                if (!Array.isArray(column.renderer)) {
+	                    content = column.renderer(row[column.name]);
 	                } else {
 	                    content = [];
-	                    info.renderer.forEach(function (element, index) {
+	                    column.renderer.forEach(function (element, index) {
 	                        switch (element.type) {
 	                            case 'button':
 	                                content.push(_react2['default'].createElement(
@@ -28325,7 +28380,7 @@
 	                                    {
 	                                        bsStyle: element['class'],
 	                                        bsSize: element.size ? element.size : 'xsmall',
-	                                        onClick: element.action.bind(null, lineData, TdInfo),
+	                                        onClick: element.action.bind(null, row, info),
 	                                        key: index
 	                                    },
 	                                    element.value
@@ -28368,7 +28423,7 @@
 	            return _react2['default'].createElement(
 	                'td',
 	                {
-	                    className: info['class']
+	                    className: column['class']
 	                },
 	                content
 	            );
@@ -28382,7 +28437,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -72,19 +72,19 @@
 
 	var _myfeReactGrid2 = _interopRequireDefault(_myfeReactGrid);
 
-	var _myfeReactDialog = __webpack_require__(242);
+	var _myfeReactDialog = __webpack_require__(243);
 
 	var _myfeReactDialog2 = _interopRequireDefault(_myfeReactDialog);
 
-	var _objectAssign = __webpack_require__(243);
+	var _objectAssign = __webpack_require__(244);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _storesDemoStore = __webpack_require__(244);
+	var _storesDemoStore = __webpack_require__(245);
 
 	var _storesDemoStore2 = _interopRequireDefault(_storesDemoStore);
 
-	var _actionsDemoActions = __webpack_require__(258);
+	var _actionsDemoActions = __webpack_require__(259);
 
 	var _actionsDemoActions2 = _interopRequireDefault(_actionsDemoActions);
 
@@ -99,12 +99,7 @@
 	        _classCallCheck(this, HelloDemo);
 
 	        _get(Object.getPrototypeOf(HelloDemo.prototype), 'constructor', this).call(this, props);
-	        var state = {};
-	        (0, _objectAssign2['default'])(state, {
-	            headList: this.GridPrepare(),
-	            subHeadList: this.subGridPrepare()
-	        }, _storesDemoStore2['default'].getState());
-	        this.state = state;
+	        this.state = _storesDemoStore2['default'].getState();
 	    }
 
 	    _createClass(HelloDemo, [{
@@ -120,152 +115,55 @@
 	    }, {
 	        key: '_onChange',
 	        value: function _onChange(state) {
-	            console.log(state);
 	            this.setState(state);
 	        }
 	    }, {
-	        key: 'subGridPrepare',
-	        value: function subGridPrepare() {
-	            var headList = [{
-	                label: '#',
-	                name: 'id'
-	            }, {
-	                label: '影片',
-	                name: 'nm'
-	            }];
-	            return headList;
-	        }
-	    }, {
-	        key: 'GridPrepare',
-	        value: function GridPrepare() {
-	            var headList = [{
-	                label: '#',
-	                name: 'id'
-	            }, {
-	                label: '影片名',
-	                name: 'nm',
-	                'class': 'col-red'
-	            }, {
-	                label: '上映日期',
-	                name: 'ct'
-	            }, {
-	                label: '有效',
-	                name: 'active',
-	                renderer: statusRenderer
-	            }, {
-	                label: '操作',
-	                renderer: [{
-	                    type: 'button',
-	                    value: '匹配',
-	                    'class': 'primary',
-	                    action: this.matchAction.bind(this)
-	                }, {
-	                    type: 'button',
-	                    value: '查看',
-	                    'class': 'info',
-	                    action: this.matchAction2.bind(this)
-	                }, {
-	                    type: 'a',
-	                    value: '链接',
-	                    url: 'http://www.meituan.com',
-	                    'class': 'XX'
-	                }]
-	            }, {
-	                label: '再操作',
-	                renderer: [{
-	                    type: 'html',
-	                    value: '测试环境数据',
-	                    'class': 'col-blud'
-	                }, {
-	                    type: 'button',
-	                    value: '删除',
-	                    'class': 'danger',
-	                    action: this.matchAction.bind(this)
-	                }]
-	            }, {
-	                label: '再再操作',
-	                renderer: [{
-	                    type: 'input',
-	                    value: '测试'
-	                }]
-	            }];
-	            function statusRenderer(content) {
-	                var ct = '';
-	                switch (content) {
-	                    case true:
-	                        ct = '有效';
-	                        break;
-	                    case false:
-	                        ct = '无效';
-	                        break;
-	                };
-	                return ct;
-	            }
-
-	            return headList;
-	        }
-	    }, {
 	        key: 'getFormData',
+
+	        /**
+	         *  actions
+	         **/
 	        value: function getFormData(info) {
 	            console.log('Form对外输出，模拟生成Grid');
-	            var data = [{
-	                id: '1',
-	                nm: '道士下山',
-	                active: true,
-	                ct: new Date().toString()
-	            }, {
-	                id: '2',
-	                nm: '道士下山2',
-	                active: false,
-	                ct: new Date().toString()
-	            }];
-	            this.setState({ dataList: data });
+	            _actionsDemoActions2['default'].renderGrid(info);
 	        }
 	    }, {
-	        key: 'matchAction',
-	        value: function matchAction(lineData) {
-	            _actionsDemoActions2['default'].showDialog(lineData);
-	        }
-	    }, {
-	        key: 'matchAction2',
-	        value: function matchAction2(lineData) {
-	            var data = [{
-	                id: '1',
-	                nm: '道士下山',
-	                active: true,
-	                ct: new Date().toString()
-	            }, {
-	                id: '2',
-	                nm: '道士下山2',
-	                active: false,
-	                ct: new Date().toString()
-	            }];
-	            _actionsDemoActions2['default'].showDialog2(data);
-	        }
-	    }, {
-	        key: 'matchClose',
-	        value: function matchClose() {
+	        key: 'infoClose',
+	        value: function infoClose() {
 	            _actionsDemoActions2['default'].closeDialog();
 	        }
 	    }, {
-	        key: 'matchClose2',
-	        value: function matchClose2() {
+	        key: 'infoClose2',
+	        value: function infoClose2() {
 	            _actionsDemoActions2['default'].closeDialog2();
 	        }
 	    }, {
 	        key: 'render',
+
+	        /**
+	         *  render
+	         **/
 	        value: function render() {
 	            var dataList = this.state.dataList,
 	                subDataList = this.state.subDataList;
+	            console.log(subDataList);
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'helloworld' },
 	                _react2['default'].createElement(
 	                    _reactBootstrap.Panel,
-	                    { header: '搜索区域', bsStyle: 'info', className: 'container' },
+	                    {
+	                        header: '搜索区域',
+	                        bsStyle: 'info',
+	                        className: 'container'
+	                    },
 	                    _react2['default'].createElement(
 	                        _myfeReactForm2['default'],
-	                        { url: 'xxx/ooo', className: 'form-horizontal row', onVlidator: this.getFormData.bind(this) },
+	                        {
+	                            url: 'xxx/ooo',
+	                            className: 'form-horizontal row',
+	                            onVlidator: this.getFormData.bind(this)
+	                        },
 	                        _react2['default'].createElement(
 	                            'div',
 	                            { className: 'col-sm-5' },
@@ -319,7 +217,9 @@
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'container table-responsive' },
-	                    _react2['default'].createElement(_myfeReactGrid2['default'], { headList: this.state.headList, dataList: dataList }),
+	                    _react2['default'].createElement(_myfeReactGrid2['default'], {
+	                        columns: this.state.headList,
+	                        rows: dataList }),
 	                    _react2['default'].createElement(
 	                        'div',
 	                        { className: 'col-sm-4 col-sm-offset-8' },
@@ -338,7 +238,7 @@
 	                    {
 	                        title: '确认信息',
 	                        show: this.state.infoShow,
-	                        onHide: this.matchClose.bind(this)
+	                        onHide: this.infoClose.bind(this)
 	                    },
 	                    this.state.subInfo
 	                ),
@@ -347,11 +247,11 @@
 	                    {
 	                        title: '信息表',
 	                        show: this.state.infoShow2,
-	                        onHide: this.matchClose2.bind(this)
+	                        onHide: this.infoClose2.bind(this)
 	                    },
 	                    _react2['default'].createElement(_myfeReactGrid2['default'], {
-	                        headList: this.state.subHeadList,
-	                        dataList: subDataList
+	                        columns: this.state.subHeadList,
+	                        rows: subDataList
 	                    })
 	                )
 	            );
@@ -28075,9 +27975,9 @@
 
 	var _GridHeadReactJs2 = _interopRequireDefault(_GridHeadReactJs);
 
-	var _GridLineReactJs = __webpack_require__(240);
+	var _GridBodyReactJs = __webpack_require__(240);
 
-	var _GridLineReactJs2 = _interopRequireDefault(_GridLineReactJs);
+	var _GridBodyReactJs2 = _interopRequireDefault(_GridBodyReactJs);
 
 	var Grid = (function (_Component) {
 	    _inherits(Grid, _Component);
@@ -28091,32 +27991,18 @@
 	    _createClass(Grid, [{
 	        key: 'render',
 	        value: function render() {
-	            var data = this.props.dataList,
-	                headList = this.props.headList,
-	                lines = [];
-	            for (var i = 0, len = data.length; i < len; i++) {
-	                lines.push(_react2['default'].createElement(_GridLineReactJs2['default'], {
-	                    key: i,
-	                    lineData: data[i],
-	                    lineInfo: { lineIndex: i },
-	                    rowInfo: headList
-	                }));
-	            }
+	            var rows = this.props.rows,
+	                columns = this.props.columns;
 	            return _react2['default'].createElement(
 	                'table',
 	                { className: 'table table-bordered table-hover' },
-	                _react2['default'].createElement(
-	                    'thead',
-	                    null,
-	                    _react2['default'].createElement(_GridHeadReactJs2['default'], {
-	                        lineData: headList
-	                    })
-	                ),
-	                _react2['default'].createElement(
-	                    'tbody',
-	                    null,
-	                    lines
-	                )
+	                _react2['default'].createElement(_GridHeadReactJs2['default'], {
+	                    columns: columns
+	                }),
+	                _react2['default'].createElement(_GridBodyReactJs2['default'], {
+	                    columns: columns,
+	                    rows: rows
+	                })
 	            );
 	        }
 	    }]);
@@ -28166,17 +28052,21 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2['default'].createElement(
-	                'tr',
+	                'thead',
 	                null,
-	                this.props.lineData.map(function (result) {
-	                    return _react2['default'].createElement(
-	                        'th',
-	                        {
-	                            key: result.label
-	                        },
-	                        result.label
-	                    );
-	                })
+	                _react2['default'].createElement(
+	                    'tr',
+	                    null,
+	                    this.props.columns.map(function (column) {
+	                        return _react2['default'].createElement(
+	                            'th',
+	                            {
+	                                key: column.label
+	                            },
+	                            column.label
+	                        );
+	                    })
+	                )
 	            );
 	        }
 	    }]);
@@ -28213,51 +28103,115 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GridTdReactJs = __webpack_require__(241);
+	var _GridRowReactJs = __webpack_require__(241);
 
-	var _GridTdReactJs2 = _interopRequireDefault(_GridTdReactJs);
+	var _GridRowReactJs2 = _interopRequireDefault(_GridRowReactJs);
 
-	var GridLine = (function (_Component) {
-	    _inherits(GridLine, _Component);
+	var GridBody = (function (_Component) {
+	    _inherits(GridBody, _Component);
 
-	    function GridLine(props) {
-	        _classCallCheck(this, GridLine);
+	    function GridBody(props) {
+	        _classCallCheck(this, GridBody);
 
-	        _get(Object.getPrototypeOf(GridLine.prototype), 'constructor', this).call(this, props);
+	        _get(Object.getPrototypeOf(GridBody.prototype), 'constructor', this).call(this, props);
 	    }
 
-	    _createClass(GridLine, [{
+	    _createClass(GridBody, [{
 	        key: 'render',
 	        value: function render() {
-	            var lineData = this.props.lineData,
-	                rowInfo = this.props.rowInfo,
-	                TdInfo = this.props.lineInfo,
-	                line = [];
-	            for (var i = 0, len = rowInfo.length; i < len; i++) {
-	                TdInfo.rowIndex = i;
-	                line.push(_react2['default'].createElement(_GridTdReactJs2['default'], {
-	                    key: i,
-	                    lineData: lineData,
-	                    TdInfo: TdInfo,
-	                    rowInfo: rowInfo[i]
-	                }));
-	            }
+	            var rows = this.props.rows,
+	                columns = this.props.columns;
 	            return _react2['default'].createElement(
-	                'tr',
+	                'tbody',
 	                null,
-	                line
+	                rows.map(function (row, index) {
+	                    return _react2['default'].createElement(_GridRowReactJs2['default'], {
+	                        key: index,
+	                        row: row,
+	                        columns: columns,
+	                        info: { rowIndex: index }
+	                    });
+	                })
 	            );
 	        }
 	    }]);
 
-	    return GridLine;
+	    return GridBody;
 	})(_react.Component);
 
-	exports['default'] = GridLine;
+	;
+
+	exports['default'] = GridBody;
 	module.exports = exports['default'];
 
 /***/ },
 /* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GridTdReactJs = __webpack_require__(242);
+
+	var _GridTdReactJs2 = _interopRequireDefault(_GridTdReactJs);
+
+	var GridRow = (function (_Component) {
+	    _inherits(GridRow, _Component);
+
+	    function GridRow(props) {
+	        _classCallCheck(this, GridRow);
+
+	        _get(Object.getPrototypeOf(GridRow.prototype), 'constructor', this).call(this, props);
+	    }
+
+	    _createClass(GridRow, [{
+	        key: 'render',
+	        value: function render() {
+	            var row = this.props.row,
+	                columns = this.props.columns,
+	                info = this.props.info;
+
+	            return _react2['default'].createElement(
+	                'tr',
+	                null,
+	                columns.map(function (column, index) {
+	                    info.rowIndex = index;
+	                    return _react2['default'].createElement(_GridTdReactJs2['default'], {
+	                        key: index,
+	                        row: row,
+	                        column: column,
+	                        info: info
+	                    });
+	                })
+	            );
+	        }
+	    }]);
+
+	    return GridRow;
+	})(_react.Component);
+
+	exports['default'] = GridRow;
+	module.exports = exports['default'];
+
+/***/ },
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28296,18 +28250,19 @@
 	    _createClass(GridTd, [{
 	        key: 'render',
 	        value: function render() {
-	            var info = this.props.rowInfo,
-	                lineData = this.props.lineData,
-	                TdInfo = this.props.TdInfo,
+	            var row = this.props.row,
+	                column = this.props.column,
+	                info = this.props.info,
 	                content = '';
-	            if (!info.renderer) {
-	                content = lineData[info.name];
+
+	            if (!column.renderer) {
+	                content = row[column.name];
 	            } else {
-	                if (!Array.isArray(info.renderer)) {
-	                    content = info.renderer(lineData[info.name]);
+	                if (!Array.isArray(column.renderer)) {
+	                    content = column.renderer(row[column.name]);
 	                } else {
 	                    content = [];
-	                    info.renderer.forEach(function (element, index) {
+	                    column.renderer.forEach(function (element, index) {
 	                        switch (element.type) {
 	                            case 'button':
 	                                content.push(_react2['default'].createElement(
@@ -28315,7 +28270,7 @@
 	                                    {
 	                                        bsStyle: element['class'],
 	                                        bsSize: element.size ? element.size : 'xsmall',
-	                                        onClick: element.action.bind(null, lineData, TdInfo),
+	                                        onClick: element.action.bind(null, row, info),
 	                                        key: index
 	                                    },
 	                                    element.value
@@ -28358,7 +28313,7 @@
 	            return _react2['default'].createElement(
 	                'td',
 	                {
-	                    className: info['class']
+	                    className: column['class']
 	                },
 	                content
 	            );
@@ -28372,7 +28327,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28439,7 +28394,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28483,7 +28438,7 @@
 	};
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28498,11 +28453,11 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _alt = __webpack_require__(245);
+	var _alt = __webpack_require__(246);
 
 	var _alt2 = _interopRequireDefault(_alt);
 
-	var _actionsDemoActions = __webpack_require__(258);
+	var _actionsDemoActions = __webpack_require__(259);
 
 	var _actionsDemoActions2 = _interopRequireDefault(_actionsDemoActions);
 
@@ -28514,18 +28469,131 @@
 
 	        this.state = {
 	            query: '',
-	            dataList: [],
 	            infoShow: false,
 	            infoShow2: false,
+	            headList: this._gridPrepare(),
+	            dataList: [],
+	            subHeadList: this._subGridPrepare(),
 	            subDataList: []
 	        };
 	    }
 
 	    _createClass(DemoStore, [{
+	        key: '_gridPrepare',
+	        value: function _gridPrepare() {
+	            var headList = [{
+	                label: '#',
+	                name: 'id'
+	            }, {
+	                label: '影片名',
+	                name: 'nm',
+	                'class': 'col-red'
+	            }, {
+	                label: '上映日期',
+	                name: 'ct'
+	            }, {
+	                label: '有效',
+	                name: 'active',
+	                renderer: this._statusRenderer
+	            }, {
+	                label: '操作',
+	                renderer: [{
+	                    type: 'button',
+	                    value: '匹配',
+	                    'class': 'primary',
+	                    action: this._matchAction.bind(this)
+	                }, {
+	                    type: 'button',
+	                    value: '查看',
+	                    'class': 'info',
+	                    action: this._matchAction2.bind(this)
+	                }, {
+	                    type: 'a',
+	                    value: '链接',
+	                    url: 'http://www.meituan.com',
+	                    'class': 'XX'
+	                }]
+	            }, {
+	                label: '再操作',
+	                renderer: [{
+	                    type: 'html',
+	                    value: '测试环境数据',
+	                    'class': 'col-blud'
+	                }, {
+	                    type: 'button',
+	                    value: '删除',
+	                    'class': 'danger',
+	                    action: this._matchAction.bind(this)
+	                }]
+	            }, {
+	                label: '再再操作',
+	                renderer: [{
+	                    type: 'input',
+	                    value: '测试'
+	                }]
+	            }];
+
+	            return headList;
+	        }
+	    }, {
+	        key: '_statusRenderer',
+	        value: function _statusRenderer(content) {
+	            var ct = '';
+	            switch (content) {
+	                case true:
+	                    ct = '有效';
+	                    break;
+	                case false:
+	                    ct = '无效';
+	                    break;
+	            };
+	            return ct;
+	        }
+	    }, {
+	        key: '_subGridPrepare',
+	        value: function _subGridPrepare() {
+	            var headList = [{
+	                label: '#',
+	                name: 'id'
+	            }, {
+	                label: '影片',
+	                name: 'nm'
+	            }];
+	            return headList;
+	        }
+	    }, {
+	        key: '_matchAction',
+
+	        /**
+	         *  innerActions
+	         **/
+	        value: function _matchAction(lineData) {
+	            _actionsDemoActions2['default'].showDialog(lineData);
+	        }
+	    }, {
+	        key: '_matchAction2',
+	        value: function _matchAction2(lineData) {
+	            var data = [{
+	                id: '1',
+	                nm: '道士下山',
+	                active: true,
+	                ct: new Date().toString()
+	            }, {
+	                id: '2',
+	                nm: '道士下山2',
+	                active: false,
+	                ct: new Date().toString()
+	            }];
+	            _actionsDemoActions2['default'].showDialog2(data);
+	        }
+	    }, {
 	        key: 'onShowDialog',
+
+	        /**
+	         *  Actions
+	         **/
+
 	        value: function onShowDialog(lineData) {
-	            console.log('展示信息');
-	            console.log(this.state);
 	            this.setState({
 	                infoShow: true,
 	                subInfo: lineData
@@ -28534,8 +28602,13 @@
 	    }, {
 	        key: 'onShowDialog2',
 	        value: function onShowDialog2(data) {
-	            console.log('展示列表');
-	            console.log(this.state);
+	            var data = [{
+	                id: '1',
+	                nm: '捉妖记'
+	            }, {
+	                id: '2',
+	                nm: '捉妖记2'
+	            }];
 	            this.setState({
 	                infoShow2: true,
 	                subDataList: data
@@ -28557,6 +28630,24 @@
 	                subDataList: []
 	            });
 	        }
+	    }, {
+	        key: 'onRenderGrid',
+	        value: function onRenderGrid() {
+	            var data = [{
+	                id: '1',
+	                nm: '道士下山',
+	                active: true,
+	                ct: new Date().toString()
+	            }, {
+	                id: '2',
+	                nm: '道士下山2',
+	                active: false,
+	                ct: new Date().toString()
+	            }];
+	            this.setState({
+	                dataList: data
+	            });
+	        }
 	    }]);
 
 	    return DemoStore;
@@ -28566,7 +28657,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28577,7 +28668,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _alt = __webpack_require__(246);
+	var _alt = __webpack_require__(247);
 
 	var _alt2 = _interopRequireDefault(_alt);
 
@@ -28585,7 +28676,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*global window*/
@@ -28662,25 +28753,25 @@
 	  }
 	}
 
-	var _flux = __webpack_require__(253);
+	var _flux = __webpack_require__(254);
 
-	var _utilsStateFunctions = __webpack_require__(256);
+	var _utilsStateFunctions = __webpack_require__(257);
 
 	var StateFunctions = _interopRequireWildcard(_utilsStateFunctions);
 
-	var _utilsFunctions = __webpack_require__(249);
+	var _utilsFunctions = __webpack_require__(250);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _store = __webpack_require__(247);
+	var _store = __webpack_require__(248);
 
 	var store = _interopRequireWildcard(_store);
 
-	var _utilsAltUtils = __webpack_require__(248);
+	var _utilsAltUtils = __webpack_require__(249);
 
 	var utils = _interopRequireWildcard(_utilsAltUtils);
 
-	var _actions = __webpack_require__(257);
+	var _actions = __webpack_require__(258);
 
 	var _actions2 = _interopRequireDefault(_actions);
 
@@ -28961,7 +29052,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29024,19 +29115,19 @@
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) subClass.__proto__ = superClass;
 	}
 
-	var _utilsAltUtils = __webpack_require__(248);
+	var _utilsAltUtils = __webpack_require__(249);
 
 	var utils = _interopRequireWildcard(_utilsAltUtils);
 
-	var _utilsFunctions = __webpack_require__(249);
+	var _utilsFunctions = __webpack_require__(250);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _AltStore = __webpack_require__(250);
+	var _AltStore = __webpack_require__(251);
 
 	var _AltStore2 = _interopRequireDefault(_AltStore);
 
-	var _StoreMixin = __webpack_require__(252);
+	var _StoreMixin = __webpack_require__(253);
 
 	var _StoreMixin2 = _interopRequireDefault(_StoreMixin);
 
@@ -29172,7 +29263,7 @@
 	}
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports) {
 
 	/*eslint-disable*/
@@ -29237,7 +29328,7 @@
 	function NoopClass() {}
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29278,7 +29369,7 @@
 	}
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29319,11 +29410,11 @@
 	  }
 	}
 
-	var _utilsFunctions = __webpack_require__(249);
+	var _utilsFunctions = __webpack_require__(250);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _transmitter = __webpack_require__(251);
+	var _transmitter = __webpack_require__(252);
 
 	var _transmitter2 = _interopRequireDefault(_transmitter);
 
@@ -29438,7 +29529,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -29471,7 +29562,7 @@
 	module.exports = transmitter;
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29496,11 +29587,11 @@
 	  return obj && obj.__esModule ? obj : { 'default': obj };
 	}
 
-	var _transmitter = __webpack_require__(251);
+	var _transmitter = __webpack_require__(252);
 
 	var _transmitter2 = _interopRequireDefault(_transmitter);
 
-	var _utilsFunctions = __webpack_require__(249);
+	var _utilsFunctions = __webpack_require__(250);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
@@ -29689,7 +29780,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29703,10 +29794,10 @@
 
 	'use strict';
 
-	module.exports.Dispatcher = __webpack_require__(254);
+	module.exports.Dispatcher = __webpack_require__(255);
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29723,7 +29814,7 @@
 
 	'use strict';
 
-	var invariant = __webpack_require__(255);
+	var invariant = __webpack_require__(256);
 
 	var _lastID = 1;
 	var _prefix = 'ID_';
@@ -29941,7 +30032,7 @@
 	module.exports = Dispatcher;
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports) {
 
 	/**
@@ -29995,7 +30086,7 @@
 	module.exports = invariant;
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30020,7 +30111,7 @@
 	  }
 	}
 
-	var _utilsFunctions = __webpack_require__(249);
+	var _utilsFunctions = __webpack_require__(250);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
@@ -30078,7 +30169,7 @@
 	}
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30117,11 +30208,11 @@
 	  }
 	}
 
-	var _utilsFunctions = __webpack_require__(249);
+	var _utilsFunctions = __webpack_require__(250);
 
 	var fn = _interopRequireWildcard(_utilsFunctions);
 
-	var _utilsAltUtils = __webpack_require__(248);
+	var _utilsAltUtils = __webpack_require__(249);
 
 	var utils = _interopRequireWildcard(_utilsAltUtils);
 
@@ -30197,7 +30288,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30210,14 +30301,14 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _alt = __webpack_require__(245);
+	var _alt = __webpack_require__(246);
 
 	var _alt2 = _interopRequireDefault(_alt);
 
 	var DemoActions = function DemoActions() {
 	    _classCallCheck(this, DemoActions);
 
-	    this.generateActions('showDialog', 'showDialog2', 'closeDialog', 'closeDialog2');
+	    this.generateActions('showDialog', 'showDialog2', 'closeDialog', 'closeDialog2', 'renderGrid');
 	};
 
 	exports['default'] = _alt2['default'].createActions(DemoActions);
