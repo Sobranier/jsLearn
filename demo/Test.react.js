@@ -5,7 +5,6 @@ import Grid from '@myfe/react-grid';
 import Dialog from '@myfe/react-dialog';
 import ObjectAssign from 'object-assign';
 
-
 import DemoStore from './stores/DemoStore';
 import DemoActions from './actions/DemoActions';
 
@@ -32,17 +31,115 @@ class HelloDemo extends Component {
 
 
     /**
+     *  static data
+     **/
+    _gridPrepare() {   
+        var headList = [{
+                label: '#',
+                name: 'id'
+            }, {
+                label: '影片名',
+                name:'nm',
+                class: 'col-red'
+            }, {
+                label: '上映日期',
+                name: 'ct'
+            }, {
+                label: '有效',
+                name: 'active',
+                renderer: this._statusRenderer
+            }, {
+                label: '操作',
+                renderer: [{
+                    type: 'button',
+                    value: '匹配',
+                    class: 'primary',
+                    action: this._matchAction.bind(this)
+                }, {
+                    type: 'button',
+                    value: '查看',
+                    class: 'info',
+                    action: this._matchAction2.bind(this)
+                }, {
+                    type: 'a',
+                    value: '链接',
+                    url: 'http://www.meituan.com',
+                    class: 'XX'
+                }]
+            }, {
+                label: '再操作',
+                renderer: [{
+                    type: 'html',
+                    value: '测试环境数据',
+                    class: 'col-blud'
+                }, {
+                    type: 'button',
+                    value: '删除',
+                    class: 'danger',
+                    action: this._matchAction.bind(this)
+                }]
+            }];
+
+        return headList;
+    };
+
+    _statusRenderer(content) {
+        var ct = '';
+        switch(content) {
+            case true:
+                ct = '有效';
+                break;
+            case false:
+                ct = '无效';
+                break;
+        };
+        return ct;
+    }
+
+    _subGridPrepare() {
+        var headList = [{
+            label: '#',
+            name: 'id'
+        }, {
+            label: '影片',
+            name: 'nm'
+        }];
+        return headList;
+    }
+
+
+    /**
      *  actions
      **/
     getFormData(info) {
-        console.log('Form对外输出，模拟生成Grid');
-        DemoActions.renderGrid(info);
+        DemoActions.getData(info);
     };
+
     infoClose() {
         DemoActions.closeDialog();
     }
+
     infoClose2() {
         DemoActions.closeDialog2();
+    }
+
+    _matchAction(lineData) {
+        DemoActions.showDialog(lineData);
+    };
+
+    _matchAction2(lineData) {
+        var data = [{
+                id: '1',
+                nm: '道士下山',
+                active: true,
+                ct: (new Date()).toString()
+            }, {
+                id: '2',
+                nm: '道士下山2',
+                active: false,
+                ct: (new Date()).toString()
+            }];
+        DemoActions.showDialog2(data);
     }
 
 
@@ -52,7 +149,9 @@ class HelloDemo extends Component {
     render() {
         let dataList = this.state.dataList,
             subDataList = this.state.subDataList;
-        console.log(subDataList);
+        const headList = this._gridPrepare(),
+            subHeadList = this._subGridPrepare();
+
         return (
             <div className={"helloworld"}>
                 <Panel
@@ -101,7 +200,7 @@ class HelloDemo extends Component {
                 </Panel>
                 <div className="container table-responsive">
                     <Grid
-                        columns={this.state.headList}
+                        columns={headList}
                         rows={dataList}>
                     </Grid>
                     <div className="col-sm-4 col-sm-offset-8">
@@ -128,7 +227,7 @@ class HelloDemo extends Component {
                     onHide={this.infoClose2.bind(this)}
                 >
                     <Grid
-                        columns={this.state.subHeadList}
+                        columns={subHeadList}
                         rows={subDataList}
                     >
                     </Grid>

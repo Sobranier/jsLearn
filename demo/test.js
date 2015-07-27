@@ -118,14 +118,94 @@
 	            this.setState(state);
 	        }
 	    }, {
+	        key: '_gridPrepare',
+
+	        /**
+	         *  static data
+	         **/
+	        value: function _gridPrepare() {
+	            var headList = [{
+	                label: '#',
+	                name: 'id'
+	            }, {
+	                label: '影片名',
+	                name: 'nm',
+	                'class': 'col-red'
+	            }, {
+	                label: '上映日期',
+	                name: 'ct'
+	            }, {
+	                label: '有效',
+	                name: 'active',
+	                renderer: this._statusRenderer
+	            }, {
+	                label: '操作',
+	                renderer: [{
+	                    type: 'button',
+	                    value: '匹配',
+	                    'class': 'primary',
+	                    action: this._matchAction.bind(this)
+	                }, {
+	                    type: 'button',
+	                    value: '查看',
+	                    'class': 'info',
+	                    action: this._matchAction2.bind(this)
+	                }, {
+	                    type: 'a',
+	                    value: '链接',
+	                    url: 'http://www.meituan.com',
+	                    'class': 'XX'
+	                }]
+	            }, {
+	                label: '再操作',
+	                renderer: [{
+	                    type: 'html',
+	                    value: '测试环境数据',
+	                    'class': 'col-blud'
+	                }, {
+	                    type: 'button',
+	                    value: '删除',
+	                    'class': 'danger',
+	                    action: this._matchAction.bind(this)
+	                }]
+	            }];
+
+	            return headList;
+	        }
+	    }, {
+	        key: '_statusRenderer',
+	        value: function _statusRenderer(content) {
+	            var ct = '';
+	            switch (content) {
+	                case true:
+	                    ct = '有效';
+	                    break;
+	                case false:
+	                    ct = '无效';
+	                    break;
+	            };
+	            return ct;
+	        }
+	    }, {
+	        key: '_subGridPrepare',
+	        value: function _subGridPrepare() {
+	            var headList = [{
+	                label: '#',
+	                name: 'id'
+	            }, {
+	                label: '影片',
+	                name: 'nm'
+	            }];
+	            return headList;
+	        }
+	    }, {
 	        key: 'getFormData',
 
 	        /**
 	         *  actions
 	         **/
 	        value: function getFormData(info) {
-	            console.log('Form对外输出，模拟生成Grid');
-	            _actionsDemoActions2['default'].renderGrid(info);
+	            _actionsDemoActions2['default'].getData(info);
 	        }
 	    }, {
 	        key: 'infoClose',
@@ -138,6 +218,27 @@
 	            _actionsDemoActions2['default'].closeDialog2();
 	        }
 	    }, {
+	        key: '_matchAction',
+	        value: function _matchAction(lineData) {
+	            _actionsDemoActions2['default'].showDialog(lineData);
+	        }
+	    }, {
+	        key: '_matchAction2',
+	        value: function _matchAction2(lineData) {
+	            var data = [{
+	                id: '1',
+	                nm: '道士下山',
+	                active: true,
+	                ct: new Date().toString()
+	            }, {
+	                id: '2',
+	                nm: '道士下山2',
+	                active: false,
+	                ct: new Date().toString()
+	            }];
+	            _actionsDemoActions2['default'].showDialog2(data);
+	        }
+	    }, {
 	        key: 'render',
 
 	        /**
@@ -146,7 +247,9 @@
 	        value: function render() {
 	            var dataList = this.state.dataList,
 	                subDataList = this.state.subDataList;
-	            console.log(subDataList);
+	            var headList = this._gridPrepare(),
+	                subHeadList = this._subGridPrepare();
+
 	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'helloworld' },
@@ -218,7 +321,7 @@
 	                    'div',
 	                    { className: 'container table-responsive' },
 	                    _react2['default'].createElement(_myfeReactGrid2['default'], {
-	                        columns: this.state.headList,
+	                        columns: headList,
 	                        rows: dataList }),
 	                    _react2['default'].createElement(
 	                        'div',
@@ -250,7 +353,7 @@
 	                        onHide: this.infoClose2.bind(this)
 	                    },
 	                    _react2['default'].createElement(_myfeReactGrid2['default'], {
-	                        columns: this.state.subHeadList,
+	                        columns: subHeadList,
 	                        rows: subDataList
 	                    })
 	                )
@@ -27993,6 +28096,7 @@
 	        value: function render() {
 	            var rows = this.props.rows,
 	                columns = this.props.columns;
+
 	            return _react2['default'].createElement(
 	                'table',
 	                { className: 'table table-bordered table-hover' },
@@ -28000,8 +28104,8 @@
 	                    columns: columns
 	                }),
 	                _react2['default'].createElement(_GridBodyReactJs2['default'], {
-	                    columns: columns,
-	                    rows: rows
+	                    rows: rows,
+	                    columns: columns
 	                })
 	            );
 	        }
@@ -28051,13 +28155,15 @@
 	    _createClass(GridHead, [{
 	        key: 'render',
 	        value: function render() {
+	            var columns = this.props.columns;
+
 	            return _react2['default'].createElement(
 	                'thead',
 	                null,
 	                _react2['default'].createElement(
 	                    'tr',
 	                    null,
-	                    this.props.columns.map(function (column) {
+	                    columns.map(function (column) {
 	                        return _react2['default'].createElement(
 	                            'th',
 	                            {
@@ -28471,122 +28577,12 @@
 	            query: '',
 	            infoShow: false,
 	            infoShow2: false,
-	            headList: this._gridPrepare(),
 	            dataList: [],
-	            subHeadList: this._subGridPrepare(),
 	            subDataList: []
 	        };
 	    }
 
 	    _createClass(DemoStore, [{
-	        key: '_gridPrepare',
-	        value: function _gridPrepare() {
-	            var headList = [{
-	                label: '#',
-	                name: 'id'
-	            }, {
-	                label: '影片名',
-	                name: 'nm',
-	                'class': 'col-red'
-	            }, {
-	                label: '上映日期',
-	                name: 'ct'
-	            }, {
-	                label: '有效',
-	                name: 'active',
-	                renderer: this._statusRenderer
-	            }, {
-	                label: '操作',
-	                renderer: [{
-	                    type: 'button',
-	                    value: '匹配',
-	                    'class': 'primary',
-	                    action: this._matchAction.bind(this)
-	                }, {
-	                    type: 'button',
-	                    value: '查看',
-	                    'class': 'info',
-	                    action: this._matchAction2.bind(this)
-	                }, {
-	                    type: 'a',
-	                    value: '链接',
-	                    url: 'http://www.meituan.com',
-	                    'class': 'XX'
-	                }]
-	            }, {
-	                label: '再操作',
-	                renderer: [{
-	                    type: 'html',
-	                    value: '测试环境数据',
-	                    'class': 'col-blud'
-	                }, {
-	                    type: 'button',
-	                    value: '删除',
-	                    'class': 'danger',
-	                    action: this._matchAction.bind(this)
-	                }]
-	            }, {
-	                label: '再再操作',
-	                renderer: [{
-	                    type: 'input',
-	                    value: '测试'
-	                }]
-	            }];
-
-	            return headList;
-	        }
-	    }, {
-	        key: '_statusRenderer',
-	        value: function _statusRenderer(content) {
-	            var ct = '';
-	            switch (content) {
-	                case true:
-	                    ct = '有效';
-	                    break;
-	                case false:
-	                    ct = '无效';
-	                    break;
-	            };
-	            return ct;
-	        }
-	    }, {
-	        key: '_subGridPrepare',
-	        value: function _subGridPrepare() {
-	            var headList = [{
-	                label: '#',
-	                name: 'id'
-	            }, {
-	                label: '影片',
-	                name: 'nm'
-	            }];
-	            return headList;
-	        }
-	    }, {
-	        key: '_matchAction',
-
-	        /**
-	         *  innerActions
-	         **/
-	        value: function _matchAction(lineData) {
-	            _actionsDemoActions2['default'].showDialog(lineData);
-	        }
-	    }, {
-	        key: '_matchAction2',
-	        value: function _matchAction2(lineData) {
-	            var data = [{
-	                id: '1',
-	                nm: '道士下山',
-	                active: true,
-	                ct: new Date().toString()
-	            }, {
-	                id: '2',
-	                nm: '道士下山2',
-	                active: false,
-	                ct: new Date().toString()
-	            }];
-	            _actionsDemoActions2['default'].showDialog2(data);
-	        }
-	    }, {
 	        key: 'onShowDialog',
 
 	        /**
@@ -28596,7 +28592,7 @@
 	        value: function onShowDialog(lineData) {
 	            this.setState({
 	                infoShow: true,
-	                subInfo: lineData
+	                subInfo: lineData.nm
 	            });
 	        }
 	    }, {
@@ -28631,8 +28627,8 @@
 	            });
 	        }
 	    }, {
-	        key: 'onRenderGrid',
-	        value: function onRenderGrid() {
+	        key: 'onGetData',
+	        value: function onGetData() {
 	            var data = [{
 	                id: '1',
 	                nm: '道士下山',
@@ -30308,7 +30304,7 @@
 	var DemoActions = function DemoActions() {
 	    _classCallCheck(this, DemoActions);
 
-	    this.generateActions('showDialog', 'showDialog2', 'closeDialog', 'closeDialog2', 'renderGrid');
+	    this.generateActions('showDialog', 'showDialog2', 'closeDialog', 'closeDialog2', 'getData');
 	};
 
 	exports['default'] = _alt2['default'].createActions(DemoActions);

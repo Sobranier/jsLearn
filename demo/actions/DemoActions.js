@@ -7,7 +7,7 @@ class DemoActions {
             'showDialog2',
             'closeDialog',
             'closeDialog2',
-            'renderGrid'
+            'getData'
         )
     }
 }

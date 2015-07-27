@@ -5,9 +5,11 @@ var gulp = require('gulp'),
 gulp.task('pack', function () {
     return gulp.src('./demo/Test.react.js')
         .pipe(webpack({
+            watch: true,
             entry: {
                 demo: './demo/Demo.react.js',
-                test: './demo/Test.react.js'
+                test: './demo/Test.react.js',
+                tt: './demo/tt.react.js'
             },
             output: {
                 filename: '[name].js'
