@@ -1,15 +1,19 @@
-import ReactBootstrap, {Panel, Input, Button, ButtonInput, Pagination, Modal} from 'react-bootstrap';
+import ReactBootstrap, {Input, Button, ButtonInput, Pagination, Modal} from 'react-bootstrap';
 import React, {Component} from 'react';
+
+
 import Form from '@myfe/react-form';
 import Grid from '@myfe/react-grid';
 import Dialog from '@myfe/react-dialog';
 import ObjectAssign from 'object-assign';
+import Panel from '@myfe/react-panel';
 
 import DemoStore from './stores/DemoStore';
 import DemoActions from './actions/DemoActions';
 
 
 import ButtonShow from './show/ButtonShow.react.js';
+
 
 /**
  *  define class HelloDemo
@@ -161,7 +165,7 @@ class HelloDemo extends Component {
 
                 <Panel
                     header={"搜索区域"}
-                    bsStyle='info'
+                    myStyle='info'
                 >
                     <Form
                         url="xxx/ooo"

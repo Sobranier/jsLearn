@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Button from '../components/Button.react.js';
+import Button from '@myfe/react-button';
+import Panel from '@myfe/react-panel';
 
 class ButtonShow extends Component {
     constructor(props) {
@@ -8,35 +9,114 @@ class ButtonShow extends Component {
 
     render() {
         return (
-            <div className="panel panel-default">
-                <div className="panel-heading">按钮组</div>
-                <div className="panel-body">
-                    <Button
-                        mySize="large"
-                        className="text"
-                    >
-                        按钮
-                    </Button>
-                    <Button
-                        myStyle='link'
-                        href="http://www.meituan.com"
-                    >
-                        按钮
-                    </Button>
-                    <Button
-                        myStyle='primary'
-                        disabled='true'
-                    >
-                        按钮
-                    </Button>
-                    <Button
-                        block
-                    >
-                        按钮
-                    </Button>
-                    
-                </div>
-            </div>
+            <Panel
+                header='按钮组'
+            >
+                <Button
+                    className="text"
+                >
+                    默认样式
+                </Button>
+                <Button
+                    myStyle="primary"
+                >
+                    Primary
+                </Button>
+                <Button
+                    myStyle="success"
+                >
+                    Success
+                </Button>
+                <Button
+                    myStyle="info"
+                >
+                    Info
+                </Button>
+                <Button
+                    myStyle="warning"
+                >
+                    Warning
+                </Button>
+                <Button
+                    myStyle="danger"
+                >
+                    Danger
+                </Button>
+                <Button
+                    myStyle="link"
+                >
+                    Link
+                </Button>
+
+                <hr/>
+
+                <Button
+                    mySize="large"
+                >
+                    Large
+                </Button>
+                <Button
+                >
+                    Medium
+                </Button>
+                <Button
+                    mySize="small"
+                >
+                    Small
+                </Button>
+                <Button
+                    mySize="xsmall"
+                >
+                    Xsmall
+                </Button>
+
+                <hr/>
+
+                <Button
+                    block
+                >
+                    Block
+                </Button>
+
+                <hr/>
+
+                <Button
+                    href="http://www.meituan.com"
+                >
+                    A Link in Button
+                </Button>
+                <Button
+                    href="#"
+                    myStyle="link"
+                >
+                    A Link in Link
+                </Button>
+
+                <hr/>
+
+                <Button
+                    active
+                    myStyle="primary"
+                >
+                    Active
+                </Button>
+                <Button
+                    disabled
+                >
+                    Disabled
+                </Button>
+                <Button
+                    loading
+                >
+                    loading
+                </Button>
+                <Button
+                    disabled
+                    href="http://www.meituan.com"
+                >
+                    Disabled
+                </Button>
+            </Panel>
         );
     }
 }
