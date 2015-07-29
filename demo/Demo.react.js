@@ -2,11 +2,11 @@ import ReactBootstrap, {Input, Button, ButtonInput, Pagination, Modal} from 'rea
 import React, {Component} from 'react';
 
 
-import Form from '@myfe/react-form';
-import Grid from '@myfe/react-grid';
-import Dialog from '@myfe/react-dialog';
+import Form from './components/Form.react';
+import Grid from './components/Grid.react';
+import Dialog from './components/Dialog.react';
 import ObjectAssign from 'object-assign';
-import Panel from '@myfe/react-panel';
+import Panel from './components/Panel.react';
 
 import DemoStore from './stores/DemoStore';
 import DemoActions from './actions/DemoActions';

@@ -12,18 +12,32 @@ class Button extends Component {
     }
 
     render() {
-        let renderer,
-            classNames = ['btn'];
+        let renderer = this.props.href || this.props.target ? 'renderA' : 'renderButton',
+            classNames = this.getClassName();
+
+        return this[renderer](classNames.join(' '));
+    }
+
+    getClassName() {
+        let classNames = ['btn'];
+
         classNames.push(this.props.className);
         classNames.push('btn-' + this.props.myStyle);
-        classNames.push('btn-' + this.sizes[this.props.mySize]);
+        if (this.props.mySize !== 'medium')
+        {
+            classNames.push('btn-' + this.sizes[this.props.mySize]);
+        }
         if (this.props.block) {
             classNames.push('btn-block');
         }
+        if (this.props.active) {
+            classNames.push('active');
+        }
+        if (this.props.loading) {
+            classNames.push('loading');
+        }
 
-        renderer = this.props.href || this.props.target ? 'renderA' : 'renderButton';
-
-        return this[renderer](classNames.join(' '));
+        return classNames;
     }
 
     renderA(classNames) {
@@ -31,9 +45,12 @@ class Button extends Component {
             href = this.props.href || '#',
             target = this.props.target || '_blank';
 
+        if (this.props.disabled) {
+            classNames += ' disabled';
+        }
+
         return (
             <Component
-                {...this.props}
                 href={href}
                 target={target}
                 className={classNames}
@@ -44,12 +61,13 @@ class Button extends Component {
     }
 
     renderButton(classNames) {
-        let Component = this.props.componentClass || 'button';
+        let Component = this.props.componentClass || 'button',
+            disabled = (this.props.disabled || this.props.loading) ? true : false;
 
         return (
             <Component
-                {...this.props}
                 className={classNames}
+                disabled={disabled}
             >
                 {this.props.children}
             </Component>
@@ -62,7 +80,9 @@ Button.defaultProps = {
     myStyle: 'default',
     mySize: 'medium',
     block: false,
-    disabled: false
+    disabled: false,
+    active: false,
+    loading: false
 }
 
 export default Button;

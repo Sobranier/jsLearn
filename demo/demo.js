@@ -64,25 +64,25 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _myfeReactForm = __webpack_require__(238);
+	var _componentsFormReact = __webpack_require__(238);
 
-	var _myfeReactForm2 = _interopRequireDefault(_myfeReactForm);
+	var _componentsFormReact2 = _interopRequireDefault(_componentsFormReact);
 
-	var _myfeReactGrid = __webpack_require__(239);
+	var _componentsGridReact = __webpack_require__(239);
 
-	var _myfeReactGrid2 = _interopRequireDefault(_myfeReactGrid);
+	var _componentsGridReact2 = _interopRequireDefault(_componentsGridReact);
 
-	var _myfeReactDialog = __webpack_require__(244);
+	var _componentsDialogReact = __webpack_require__(244);
 
-	var _myfeReactDialog2 = _interopRequireDefault(_myfeReactDialog);
+	var _componentsDialogReact2 = _interopRequireDefault(_componentsDialogReact);
 
 	var _objectAssign = __webpack_require__(1);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _myfeReactPanel = __webpack_require__(245);
+	var _componentsPanelReact = __webpack_require__(245);
 
-	var _myfeReactPanel2 = _interopRequireDefault(_myfeReactPanel);
+	var _componentsPanelReact2 = _interopRequireDefault(_componentsPanelReact);
 
 	var _storesDemoStore = __webpack_require__(246);
 
@@ -263,13 +263,13 @@
 	                { className: 'helloworld container' },
 	                _react2['default'].createElement(_showButtonShowReactJs2['default'], null),
 	                _react2['default'].createElement(
-	                    _myfeReactPanel2['default'],
+	                    _componentsPanelReact2['default'],
 	                    {
 	                        header: '搜索区域',
 	                        myStyle: 'info'
 	                    },
 	                    _react2['default'].createElement(
-	                        _myfeReactForm2['default'],
+	                        _componentsFormReact2['default'],
 	                        {
 	                            url: 'xxx/ooo',
 	                            className: 'form-horizontal row',
@@ -328,7 +328,7 @@
 	                _react2['default'].createElement(
 	                    'div',
 	                    { className: 'container table-responsive' },
-	                    _react2['default'].createElement(_myfeReactGrid2['default'], {
+	                    _react2['default'].createElement(_componentsGridReact2['default'], {
 	                        columns: headList,
 	                        rows: dataList }),
 	                    _react2['default'].createElement(
@@ -345,7 +345,7 @@
 	                    )
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactDialog2['default'],
+	                    _componentsDialogReact2['default'],
 	                    {
 	                        title: '确认信息',
 	                        show: this.state.infoShow,
@@ -354,13 +354,13 @@
 	                    this.state.subInfo
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactDialog2['default'],
+	                    _componentsDialogReact2['default'],
 	                    {
 	                        title: '信息表',
 	                        show: this.state.infoShow2,
 	                        onHide: this.infoClose2.bind(this)
 	                    },
-	                    _react2['default'].createElement(_myfeReactGrid2['default'], {
+	                    _react2['default'].createElement(_componentsGridReact2['default'], {
 	                        columns: subHeadList,
 	                        rows: subDataList
 	                    })
@@ -30426,13 +30426,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _myfeReactButton = __webpack_require__(262);
+	var _componentsButtonReact = __webpack_require__(262);
 
-	var _myfeReactButton2 = _interopRequireDefault(_myfeReactButton);
+	var _componentsButtonReact2 = _interopRequireDefault(_componentsButtonReact);
 
-	var _myfeReactPanel = __webpack_require__(245);
+	var _componentsPanelReact = __webpack_require__(245);
 
-	var _myfeReactPanel2 = _interopRequireDefault(_myfeReactPanel);
+	var _componentsPanelReact2 = _interopRequireDefault(_componentsPanelReact);
 
 	var ButtonShow = (function (_Component) {
 	    _inherits(ButtonShow, _Component);
@@ -30447,54 +30447,54 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2['default'].createElement(
-	                _myfeReactPanel2['default'],
+	                _componentsPanelReact2['default'],
 	                {
 	                    header: '按钮组'
 	                },
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        className: 'text'
 	                    },
 	                    '默认样式'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        myStyle: 'primary'
 	                    },
 	                    'Primary'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        myStyle: 'success'
 	                    },
 	                    'Success'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        myStyle: 'info'
 	                    },
 	                    'Info'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        myStyle: 'warning'
 	                    },
 	                    'Warning'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        myStyle: 'danger'
 	                    },
 	                    'Danger'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        myStyle: 'link'
 	                    },
@@ -30502,26 +30502,26 @@
 	                ),
 	                _react2['default'].createElement('hr', null),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        mySize: 'large'
 	                    },
 	                    'Large'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    null,
 	                    'Medium'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        mySize: 'small'
 	                    },
 	                    'Small'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        mySize: 'xsmall'
 	                    },
@@ -30529,7 +30529,7 @@
 	                ),
 	                _react2['default'].createElement('hr', null),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        block: true
 	                    },
@@ -30537,14 +30537,14 @@
 	                ),
 	                _react2['default'].createElement('hr', null),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        href: 'http://www.meituan.com'
 	                    },
 	                    'A Link in Button'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        href: '#',
 	                        myStyle: 'link'
@@ -30553,7 +30553,7 @@
 	                ),
 	                _react2['default'].createElement('hr', null),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        active: true,
 	                        myStyle: 'primary'
@@ -30561,21 +30561,21 @@
 	                    'Active'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        disabled: true
 	                    },
 	                    'Disabled'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        loading: true
 	                    },
 	                    'loading'
 	                ),
 	                _react2['default'].createElement(
-	                    _myfeReactButton2['default'],
+	                    _componentsButtonReact2['default'],
 	                    {
 	                        disabled: true,
 	                        href: 'http://www.meituan.com'

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Button from '@myfe/react-button';
-import Panel from '@myfe/react-panel';
+import Button from '../components/Button.react';
+import Panel from '../components/Panel.react';
 
 class ButtonShow extends Component {
     constructor(props) {
