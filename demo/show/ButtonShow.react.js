@@ -7,6 +7,10 @@ class ButtonShow extends Component {
         super(props);
     }
 
+    Cn() {
+        console.log('你点击了按钮');
+    }
+
     render() {
         return (
             <Panel
@@ -74,6 +78,7 @@ class ButtonShow extends Component {
 
                 <Button
                     block
+                    onClick={this.Cn.bind(this)}
                 >
                     Block
                 </Button>
@@ -102,8 +107,9 @@ class ButtonShow extends Component {
                 </Button>
                 <Button
                     disabled
+                    onClick={this.Cn.bind(this)}
                 >
-                    Disabled
+                    Disabled  点击无效
                 </Button>
                 <Button
                     loading
@@ -115,6 +121,14 @@ class ButtonShow extends Component {
                     href="http://www.meituan.com"
                 >
                     Disabled
+                </Button>
+
+                <hr/>
+
+                <Button
+                    counting="5"
+                >
+                    Counting in 5
                 </Button>
             </Panel>
         );

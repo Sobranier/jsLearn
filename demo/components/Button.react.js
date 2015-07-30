@@ -9,6 +9,9 @@ class Button extends Component {
             'small': 'sm',
             'xsmall': 'xs'
         };
+        this.state = {
+            loading: this.props.loading
+        }
     }
 
     render() {
@@ -33,7 +36,7 @@ class Button extends Component {
         if (this.props.active) {
             classNames.push('active');
         }
-        if (this.props.loading) {
+        if (this.state.loading) {
             classNames.push('loading');
         }
 
@@ -62,18 +65,37 @@ class Button extends Component {
 
     renderButton(classNames) {
         let Component = this.props.componentClass || 'button',
-            disabled = (this.props.disabled || this.props.loading) ? true : false;
+            disabled = (this.props.disabled || this.state.loading) ? true : false;
 
-        return (
-            <Component
-                className={classNames}
-                disabled={disabled}
-            >
-                {this.props.children}
-            </Component>
-        );
+        if (this.props.counting) {
+            let tick = () => {
+                this.setState({loading: true});
+                setTimeout(() => {
+                    this.setState({loading: false});
+                }, this.props.counting * 1000);
+            }
+            return (
+                <Component
+                    className={classNames}
+                    disabled={disabled}
+                    onClick={this.props.onClick}
+                    onMouseUp={tick.bind(this)}
+                >
+                    {this.props.children}
+                </Component>
+            );
+        } else {
+            return (
+                <Component
+                    className={classNames}
+                    disabled={disabled}
+                    onClick={this.props.onClick}
+                >
+                    {this.props.children}
+                </Component>
+            );
+        }
     }
-
 }
 
 Button.defaultProps = {
@@ -82,7 +104,8 @@ Button.defaultProps = {
     block: false,
     disabled: false,
     active: false,
-    loading: false
+    loading: false,
+    counting: false
 }
 
 export default Button;

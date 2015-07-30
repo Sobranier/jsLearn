@@ -64,6 +64,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	/**
+	 *  components
+	 **/
+
 	var _componentsFormReact = __webpack_require__(238);
 
 	var _componentsFormReact2 = _interopRequireDefault(_componentsFormReact);
@@ -84,6 +88,10 @@
 
 	var _componentsPanelReact2 = _interopRequireDefault(_componentsPanelReact);
 
+	/**
+	 *  sotres & actions
+	 **/
+
 	var _storesDemoStore = __webpack_require__(246);
 
 	var _storesDemoStore2 = _interopRequireDefault(_storesDemoStore);
@@ -91,6 +99,10 @@
 	var _actionsDemoActions = __webpack_require__(260);
 
 	var _actionsDemoActions2 = _interopRequireDefault(_actionsDemoActions);
+
+	/**
+	 *  area
+	 **/
 
 	var _showButtonShowReactJs = __webpack_require__(261);
 
@@ -30444,6 +30456,11 @@
 	    }
 
 	    _createClass(ButtonShow, [{
+	        key: 'Cn',
+	        value: function Cn() {
+	            console.log('你点击了按钮');
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2['default'].createElement(
@@ -30531,7 +30548,8 @@
 	                _react2['default'].createElement(
 	                    _componentsButtonReact2['default'],
 	                    {
-	                        block: true
+	                        block: true,
+	                        onClick: this.Cn.bind(this)
 	                    },
 	                    'Block'
 	                ),
@@ -30563,9 +30581,10 @@
 	                _react2['default'].createElement(
 	                    _componentsButtonReact2['default'],
 	                    {
-	                        disabled: true
+	                        disabled: true,
+	                        onClick: this.Cn.bind(this)
 	                    },
-	                    'Disabled'
+	                    'Disabled  点击无效'
 	                ),
 	                _react2['default'].createElement(
 	                    _componentsButtonReact2['default'],
@@ -30581,6 +30600,14 @@
 	                        href: 'http://www.meituan.com'
 	                    },
 	                    'Disabled'
+	                ),
+	                _react2['default'].createElement('hr', null),
+	                _react2['default'].createElement(
+	                    _componentsButtonReact2['default'],
+	                    {
+	                        counting: '5'
+	                    },
+	                    'Counting in 5'
 	                )
 	            );
 	        }
@@ -30629,6 +30656,9 @@
 	            'small': 'sm',
 	            'xsmall': 'xs'
 	        };
+	        this.state = {
+	            loading: this.props.loading
+	        };
 	    }
 
 	    _createClass(Button, [{
@@ -30655,7 +30685,7 @@
 	            if (this.props.active) {
 	                classNames.push('active');
 	            }
-	            if (this.props.loading) {
+	            if (this.state.loading) {
 	                classNames.push('loading');
 	            }
 
@@ -30685,17 +30715,39 @@
 	    }, {
 	        key: 'renderButton',
 	        value: function renderButton(classNames) {
-	            var Component = this.props.componentClass || 'button',
-	                disabled = this.props.disabled || this.props.loading ? true : false;
+	            var _this = this;
 
-	            return _react2['default'].createElement(
-	                Component,
-	                {
-	                    className: classNames,
-	                    disabled: disabled
-	                },
-	                this.props.children
-	            );
+	            var Component = this.props.componentClass || 'button',
+	                disabled = this.props.disabled || this.state.loading ? true : false;
+
+	            if (this.props.counting) {
+	                var tick = function tick() {
+	                    _this.setState({ loading: true });
+	                    setTimeout(function () {
+	                        _this.setState({ loading: false });
+	                    }, _this.props.counting * 1000);
+	                };
+	                return _react2['default'].createElement(
+	                    Component,
+	                    {
+	                        className: classNames,
+	                        disabled: disabled,
+	                        onClick: this.props.onClick,
+	                        onMouseUp: tick.bind(this)
+	                    },
+	                    this.props.children
+	                );
+	            } else {
+	                return _react2['default'].createElement(
+	                    Component,
+	                    {
+	                        className: classNames,
+	                        disabled: disabled,
+	                        onClick: this.props.onClick
+	                    },
+	                    this.props.children
+	                );
+	            }
 	        }
 	    }]);
 
@@ -30708,7 +30760,8 @@
 	    block: false,
 	    disabled: false,
 	    active: false,
-	    loading: false
+	    loading: false,
+	    counting: false
 	};
 
 	exports['default'] = Button;

@@ -1,17 +1,25 @@
 import ReactBootstrap, {Input, Button, ButtonInput, Pagination, Modal} from 'react-bootstrap';
 import React, {Component} from 'react';
 
-
+/**
+ *  components
+ **/
 import Form from './components/Form.react';
 import Grid from './components/Grid.react';
 import Dialog from './components/Dialog.react';
 import ObjectAssign from 'object-assign';
 import Panel from './components/Panel.react';
 
+/**
+ *  sotres & actions
+ **/
 import DemoStore from './stores/DemoStore';
 import DemoActions from './actions/DemoActions';
 
 
+/**
+ *  area
+ **/
 import ButtonShow from './show/ButtonShow.react.js';
 
 
