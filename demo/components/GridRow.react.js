@@ -6,6 +6,18 @@ class GridRow extends Component {
         super(props); 
     }
 
+    renderSelection() {
+        if (this.props.selection === undefined) {
+            return null;
+        } else {
+            return (
+                <th>
+                    <input type="checkbox"/>
+                </th>        
+            );
+        }
+    }
+
     render() {
         let row = this.props.row,
             columns = this.props.columns,
@@ -13,6 +25,7 @@ class GridRow extends Component {
 
         return (
             <tr>
+                {this.renderSelection()}
                 {columns.map(function(column, index) {
                     info.rowIndex  = index;
                     return (

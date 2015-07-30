@@ -8,7 +8,8 @@ class GridBody extends Component {
 
     render () {
         let rows = this.props.rows,
-            columns = this.props.columns;
+            columns = this.props.columns,
+            selection = this.props.selection;
         return (
             <tbody>
                 {rows.map(function(row, index) {
@@ -18,6 +19,7 @@ class GridBody extends Component {
                             row={row}
                             columns={columns}
                             info={{rowIndex: index}}
+                            selection={selection}
                         >
                         </GridRow>
                     );

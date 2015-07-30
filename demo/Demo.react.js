@@ -122,6 +122,20 @@ class HelloDemo extends Component {
         return headList;
     }
 
+    _rowSelection() {
+        var selection = {
+            onSelect: () => {
+                console.log(123);
+            
+            },
+            onSelectAll: () => {
+                console.log(234);
+            
+            }
+        };
+        return selection;
+    }
+
 
     /**
      *  actions
@@ -165,7 +179,8 @@ class HelloDemo extends Component {
         let dataList = this.state.dataList,
             subDataList = this.state.subDataList;
         const headList = this._gridPrepare(),
-            subHeadList = this._subGridPrepare();
+            subHeadList = this._subGridPrepare(),
+            rowSelection = this._rowSelection();
 
         return (
             <div className="helloworld container">
@@ -243,6 +258,7 @@ class HelloDemo extends Component {
                     onHide={this.infoClose2.bind(this)}
                 >
                     <Grid
+                        selection={rowSelection}
                         columns={subHeadList}
                         rows={subDataList}
                     >
