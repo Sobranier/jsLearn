@@ -28404,9 +28404,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrap = __webpack_require__(2);
+	var _ButtonReactJs = __webpack_require__(262);
 
-	var _reactBootstrap2 = _interopRequireDefault(_reactBootstrap);
+	var _ButtonReactJs2 = _interopRequireDefault(_ButtonReactJs);
 
 	var GridTd = (function (_Component) {
 	    _inherits(GridTd, _Component);
@@ -28436,10 +28436,10 @@
 	                        switch (element.type) {
 	                            case 'button':
 	                                content.push(_react2['default'].createElement(
-	                                    _reactBootstrap.Button,
+	                                    _ButtonReactJs2['default'],
 	                                    {
-	                                        bsStyle: element['class'],
-	                                        bsSize: element.size ? element.size : 'xsmall',
+	                                        myStyle: element['class'],
+	                                        mySize: element.size ? element.size : 'xsmall',
 	                                        onClick: element.action.bind(null, row, info),
 	                                        key: index
 	                                    },
@@ -28448,11 +28448,10 @@
 	                                break;
 	                            case 'a':
 	                                content.push(_react2['default'].createElement(
-	                                    _reactBootstrap.Button,
+	                                    _ButtonReactJs2['default'],
 	                                    {
-	                                        bsStyle: 'link',
+	                                        myStyle: 'link',
 	                                        href: element.url,
-	                                        target: '_blank',
 	                                        key: index
 	                                    },
 	                                    element.value

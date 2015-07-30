@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactBootstrap, {Button, Input} from 'react-bootstrap';
+import Button from './Button.react.js';
 
 class GridTd extends Component {
     constructor(props) {
@@ -24,8 +24,8 @@ class GridTd extends Component {
                         case 'button':
                             content.push(
                                 <Button
-                                    bsStyle={element.class}
-                                    bsSize={element.size ? element.size : 'xsmall'}
+                                    myStyle={element.class}
+                                    mySize={element.size ? element.size : 'xsmall'}
                                     onClick={element.action.bind(null, row, info)}
                                     key={index}
                                 >
@@ -36,9 +36,8 @@ class GridTd extends Component {
                         case 'a':
                             content.push(
                                 <Button
-                                    bsStyle="link"
+                                    myStyle="link"
                                     href={element.url}
-                                    target="_blank"
                                     key={index}
                                 >
                                     {element.value}
