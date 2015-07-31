@@ -26,8 +26,7 @@ class Button extends Component {
 
         classNames.push(this.props.className);
         classNames.push('btn-' + this.props.myStyle);
-        if (this.props.mySize !== 'medium')
-        {
+        if (this.props.mySize !== 'medium') {
             classNames.push('btn-' + this.sizes[this.props.mySize]);
         }
         if (this.props.block) {
